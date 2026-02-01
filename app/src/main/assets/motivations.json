@@ -1,0 +1,1335 @@
+{
+  "motivations": [
+    {
+      "quote": "The only way to do great work is to love what you do.",
+      "author": "Steve Jobs",
+      "context": "From Stanford commencement speech, 2005",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/steve_jobs",
+      "themes": [
+        "work",
+        "passion",
+        "excellence"
+      ],
+      "sourceName": "Stanford University",
+      "sourceUrl": "https://news.stanford.edu/2005/06/14/jobs-061505/",
+      "license": "Public Domain"
+    },
+    {
+      "quote": "In the end, we will remember not the words of our enemies, but the silence of our friends.",
+      "author": "Martin Luther King Jr.",
+      "context": "Civil rights leader and activist, 1929-1968",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/mlk",
+      "themes": [
+        "friendship",
+        "courage",
+        "justice"
+      ],
+      "sourceName": "The Trumpet of Conscience",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The future belongs to those who believe in the beauty of their dreams.",
+      "author": "Eleanor Roosevelt",
+      "context": "First Lady of the United States, 1933-1945",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/eleanor_roosevelt",
+      "themes": [
+        "dreams",
+        "future",
+        "belief"
+      ],
+      "sourceName": "Tomorrow is Now",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "It is during our darkest moments that we must focus to see the light.",
+      "author": "Aristotle",
+      "context": "Ancient Greek philosopher, 384-322 BCE",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/aristotle",
+      "themes": [
+        "perseverance",
+        "hope",
+        "wisdom"
+      ],
+      "sourceName": "Nicomachean Ethics",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The way to get started is to quit talking and begin doing.",
+      "author": "Walt Disney",
+      "context": "American entrepreneur and animator, 1901-1966",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/walt_disney",
+      "themes": [
+        "action",
+        "initiative",
+        "success"
+      ],
+      "sourceName": "Disney Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Don't let yesterday take up too much of today.",
+      "author": "Will Rogers",
+      "context": "American humorist, 1879-1935",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_6",
+      "themes": [
+        "present",
+        "mindfulness"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "You learn more from failure than from success.",
+      "author": "Unknown",
+      "context": "Popular wisdom",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_7",
+      "themes": [
+        "failure",
+        "learning"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "It's not whether you get knocked down, it's whether you get up.",
+      "author": "Vince Lombardi",
+      "context": "NFL coach, 1913-1970",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_8",
+      "themes": [
+        "resilience",
+        "sports"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "If you are working on something you care about, you don't have to be pushed.",
+      "author": "Steve Jobs",
+      "context": "Apple co-founder",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_9",
+      "themes": [
+        "passion",
+        "motivation"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "People crazy enough to think they can change the world, are the ones who do.",
+      "author": "Rob Siltanen",
+      "context": "Think Different campaign, 1997",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_10",
+      "themes": [
+        "innovation",
+        "change"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Failure will never overtake me if my determination is strong enough.",
+      "author": "Og Mandino",
+      "context": "Author, 1923-1996",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_11",
+      "themes": [
+        "determination",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Believe you can and you're halfway there.",
+      "author": "Theodore Roosevelt",
+      "context": "26th US President, 1858-1919",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_12",
+      "themes": [
+        "belief",
+        "confidence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "We may encounter many defeats but we must not be defeated.",
+      "author": "Maya Angelou",
+      "context": "Poet and activist, 1928-2014",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_13",
+      "themes": [
+        "resilience",
+        "courage"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Knowing is not enough; we must apply. Wishing is not enough; we must do.",
+      "author": "Johann Wolfgang von Goethe",
+      "context": "German writer, 1749-1832",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_14",
+      "themes": [
+        "action",
+        "knowledge"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Imagine your life is perfect in every respect; what would it look like?",
+      "author": "Brian Tracy",
+      "context": "Motivational speaker",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_15",
+      "themes": [
+        "vision",
+        "goals"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "We generate fears while we sit. We overcome them by action.",
+      "author": "Dr. Henry Link",
+      "context": "Psychologist, 1889-1952",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_16",
+      "themes": [
+        "action",
+        "fear"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Whether you think you can or think you can't, you're right.",
+      "author": "Henry Ford",
+      "context": "Industrialist, 1863-1947",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_17",
+      "themes": [
+        "mindset",
+        "belief"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Security is mostly a superstition. Life is either a daring adventure or nothing.",
+      "author": "Helen Keller",
+      "context": "Author, 1880-1968",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_18",
+      "themes": [
+        "courage",
+        "adventure"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The man who has confidence in himself gains the confidence of others.",
+      "author": "Hasidic Proverb",
+      "context": "Traditional wisdom",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_19",
+      "themes": [
+        "confidence",
+        "leadership"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The only limit to our realization of tomorrow will be our doubts of today.",
+      "author": "Franklin D. Roosevelt",
+      "context": "32nd US President, 1882-1945",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_20",
+      "themes": [
+        "doubt",
+        "future"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Creativity is intelligence having fun.",
+      "author": "Albert Einstein",
+      "context": "Physicist, 1879-1955",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_21",
+      "themes": [
+        "creativity",
+        "intelligence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+      "author": "Ralph Waldo Emerson",
+      "context": "Philosopher, 1803-1882",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_22",
+      "themes": [
+        "inner_strength",
+        "perspective"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The best time to plant a tree was 20 years ago. The second best time is now.",
+      "author": "Chinese Proverb",
+      "context": "Ancient wisdom",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_23",
+      "themes": [
+        "action",
+        "timing"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Your time is limited, don't waste it living someone else's life.",
+      "author": "Steve Jobs",
+      "context": "Apple co-founder",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_24",
+      "themes": [
+        "authenticity",
+        "time"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The only impossible journey is the one you never begin.",
+      "author": "Tony Robbins",
+      "context": "Life coach",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_25",
+      "themes": [
+        "beginning",
+        "possibility"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "In this life we cannot do great things. We can only do small things with great love.",
+      "author": "Mother Teresa",
+      "context": "Humanitarian, 1910-1997",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_26",
+      "themes": [
+        "love",
+        "service"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Only a life lived for others is a life worthwhile.",
+      "author": "Albert Einstein",
+      "context": "Physicist",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_27",
+      "themes": [
+        "service",
+        "meaning"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The purpose of our lives is to be happy.",
+      "author": "Dalai Lama",
+      "context": "Spiritual leader",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_28",
+      "themes": [
+        "happiness",
+        "purpose"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Life is what happens when you're busy making other plans.",
+      "author": "John Lennon",
+      "context": "Musician, 1940-1980",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_29",
+      "themes": [
+        "present",
+        "life"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Get busy living or get busy dying.",
+      "author": "Stephen King",
+      "context": "Author",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_30",
+      "themes": [
+        "action",
+        "choice"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "You only live once, but if you do it right, once is enough.",
+      "author": "Mae West",
+      "context": "Actress, 1893-1980",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_31",
+      "themes": [
+        "life",
+        "quality"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Many of life's failures are people who did not realize how close they were to success.",
+      "author": "Thomas Edison",
+      "context": "Inventor, 1847-1931",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_32",
+      "themes": [
+        "perseverance",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The way to get started is to quit talking and begin doing.",
+      "author": "Walt Disney",
+      "context": "Entrepreneur",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_33",
+      "themes": [
+        "action",
+        "initiative"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Don't be afraid to give up the good to go for the great.",
+      "author": "John D. Rockefeller",
+      "context": "Industrialist, 1839-1937",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_34",
+      "themes": [
+        "ambition",
+        "excellence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "I find that the harder I work, the more luck I seem to have.",
+      "author": "Thomas Jefferson",
+      "context": "3rd US President, 1743-1826",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_35",
+      "themes": [
+        "work",
+        "luck"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+      "author": "Winston Churchill",
+      "context": "British PM, 1874-1965",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_36",
+      "themes": [
+        "courage",
+        "perseverance"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Success usually comes to those who are too busy to be looking for it.",
+      "author": "Henry David Thoreau",
+      "context": "Philosopher, 1817-1862",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_37",
+      "themes": [
+        "success",
+        "focus"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The road to success and the road to failure are almost exactly the same.",
+      "author": "Colin R. Davis",
+      "context": "Conductor, 1927-2013",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_38",
+      "themes": [
+        "success",
+        "failure"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Success is walking from failure to failure with no loss of enthusiasm.",
+      "author": "Winston Churchill",
+      "context": "British PM",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_39",
+      "themes": [
+        "enthusiasm",
+        "resilience"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "I never dreamed about success, I worked for it.",
+      "author": "Est\u00e9e Lauder",
+      "context": "Businesswoman, 1908-2004",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_40",
+      "themes": [
+        "work",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Success is not how high you have climbed, but how you make a positive difference.",
+      "author": "Roy T. Bennett",
+      "context": "Author",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_41",
+      "themes": [
+        "impact",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Don't be distracted by criticism. Remember, the only taste of success some people get is to take a bite out of you.",
+      "author": "Zig Ziglar",
+      "context": "Motivational speaker, 1926-2012",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_42",
+      "themes": [
+        "criticism",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The secret of success is to do the common thing uncommonly well.",
+      "author": "John D. Rockefeller Jr.",
+      "context": "Philanthropist, 1874-1960",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_43",
+      "themes": [
+        "excellence",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "I find that when you have a real interest in life and a curious life, that sleep is not the most important thing.",
+      "author": "Martha Stewart",
+      "context": "Businesswoman",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_44",
+      "themes": [
+        "passion",
+        "dedication"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "It's not what you look at that matters, it's what you see.",
+      "author": "Henry David Thoreau",
+      "context": "Philosopher",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_45",
+      "themes": [
+        "perspective",
+        "vision"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The only person you are destined to become is the person you decide to be.",
+      "author": "Ralph Waldo Emerson",
+      "context": "Philosopher",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_46",
+      "themes": [
+        "choice",
+        "destiny"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Go confidently in the direction of your dreams! Live the life you've imagined.",
+      "author": "Henry David Thoreau",
+      "context": "Philosopher",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_47",
+      "themes": [
+        "dreams",
+        "confidence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "When I stand before God at the end of my life, I would hope that I would not have a single bit of talent left.",
+      "author": "Erma Bombeck",
+      "context": "Humorist, 1927-1996",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_48",
+      "themes": [
+        "talent",
+        "purpose"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Too many of us are not living our dreams because we are living our fears.",
+      "author": "Les Brown",
+      "context": "Motivational speaker",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_49",
+      "themes": [
+        "fear",
+        "dreams"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Challenges are what make life interesting and overcoming them is what makes life meaningful.",
+      "author": "Joshua J. Marine",
+      "context": "Author",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_50",
+      "themes": [
+        "challenges",
+        "meaning"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "If you want to lift yourself up, lift up someone else.",
+      "author": "Booker T. Washington",
+      "context": "Educator, 1856-1915",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_51",
+      "themes": [
+        "service",
+        "growth"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "I have learned over the years that when one's mind is made up, this diminishes fear.",
+      "author": "Rosa Parks",
+      "context": "Civil rights activist, 1913-2005",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_52",
+      "themes": [
+        "determination",
+        "fear"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Certain things catch your eye, but pursue only those that capture the heart.",
+      "author": "Ancient Indian Proverb",
+      "context": "Traditional wisdom",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_53",
+      "themes": [
+        "passion",
+        "focus"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Everything you've ever wanted is on the other side of fear.",
+      "author": "George Addair",
+      "context": "Author",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_54",
+      "themes": [
+        "fear",
+        "desire"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "We can easily forgive a child who is afraid of the dark; the real tragedy is men who are afraid of the light.",
+      "author": "Plato",
+      "context": "Greek philosopher, 428-348 BCE",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_55",
+      "themes": [
+        "courage",
+        "truth"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Teach thy tongue to say, 'I do not know,' and thou shalt progress.",
+      "author": "Maimonides",
+      "context": "Jewish philosopher, 1138-1204",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_56",
+      "themes": [
+        "humility",
+        "learning"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Start where you are. Use what you have. Do what you can.",
+      "author": "Arthur Ashe",
+      "context": "Tennis player, 1943-1993",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_57",
+      "themes": [
+        "action",
+        "resourcefulness"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "When I was 5 years old, my mother always told me that happiness was the key to life.",
+      "author": "John Lennon",
+      "context": "Musician",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_58",
+      "themes": [
+        "happiness",
+        "wisdom"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Fall seven times and stand up eight.",
+      "author": "Japanese Proverb",
+      "context": "Traditional wisdom",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_59",
+      "themes": [
+        "resilience",
+        "perseverance"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "When one door of happiness closes, another opens.",
+      "author": "Helen Keller",
+      "context": "Author",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_60",
+      "themes": [
+        "opportunity",
+        "perspective"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Everything has beauty, but not everyone can see.",
+      "author": "Confucius",
+      "context": "Chinese philosopher, 551-479 BCE",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_61",
+      "themes": [
+        "beauty",
+        "perception"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "How wonderful it is that nobody need wait a single moment before starting to improve the world.",
+      "author": "Anne Frank",
+      "context": "Diarist, 1929-1945",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_62",
+      "themes": [
+        "action",
+        "impact"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "When I let go of what I am, I become what I might be.",
+      "author": "Lao Tzu",
+      "context": "Chinese philosopher, 6th century BCE",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_63",
+      "themes": [
+        "change",
+        "potential"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Life is 10% what happens to me and 90% of how I react to it.",
+      "author": "Charles Swindoll",
+      "context": "Pastor and author",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_64",
+      "themes": [
+        "attitude",
+        "response"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "An unexamined life is not worth living.",
+      "author": "Socrates",
+      "context": "Greek philosopher, 470-399 BCE",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_65",
+      "themes": [
+        "reflection",
+        "wisdom"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Your time is limited, so don't waste it living someone else's life.",
+      "author": "Steve Jobs",
+      "context": "Entrepreneur",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_66",
+      "themes": [
+        "authenticity",
+        "time"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Winning isn't everything, but wanting to win is.",
+      "author": "Vince Lombardi",
+      "context": "NFL coach",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_67",
+      "themes": [
+        "ambition",
+        "desire"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "I am not a product of my circumstances. I am a product of my decisions.",
+      "author": "Stephen Covey",
+      "context": "Author, 1932-2012",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_68",
+      "themes": [
+        "choice",
+        "responsibility"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Every child is an artist. The problem is how to remain an artist once he grows up.",
+      "author": "Pablo Picasso",
+      "context": "Artist, 1881-1973",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_69",
+      "themes": [
+        "creativity",
+        "childhood"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "You can never cross the ocean until you have the courage to lose sight of the shore.",
+      "author": "Christopher Columbus",
+      "context": "Explorer, 1451-1506",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_70",
+      "themes": [
+        "courage",
+        "risk"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+      "author": "Maya Angelou",
+      "context": "Poet",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_71",
+      "themes": [
+        "impact",
+        "emotion"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Either you run the day, or the day runs you.",
+      "author": "Jim Rohn",
+      "context": "Entrepreneur, 1930-2009",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_72",
+      "themes": [
+        "control",
+        "discipline"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Whether you think you can or you think you can't, you're right.",
+      "author": "Henry Ford",
+      "context": "Industrialist",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_73",
+      "themes": [
+        "mindset",
+        "belief"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The two most important days in your life are the day you are born and the day you find out why.",
+      "author": "Mark Twain",
+      "context": "Author, 1835-1910",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_74",
+      "themes": [
+        "purpose",
+        "meaning"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.",
+      "author": "Johann Wolfgang von Goethe",
+      "context": "Writer",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_75",
+      "themes": [
+        "boldness",
+        "action"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The best revenge is massive success.",
+      "author": "Frank Sinatra",
+      "context": "Singer, 1915-1998",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_76",
+      "themes": [
+        "success",
+        "motivation"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "People often say that motivation doesn't last. Well, neither does bathing. That's why we recommend it daily.",
+      "author": "Zig Ziglar",
+      "context": "Motivational speaker",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_77",
+      "themes": [
+        "motivation",
+        "consistency"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Life shrinks or expands in proportion to one's courage.",
+      "author": "Ana\u00efs Nin",
+      "context": "Author, 1903-1977",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_78",
+      "themes": [
+        "courage",
+        "life"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "If you hear a voice within you say 'you cannot paint,' then by all means paint and that voice will be silenced.",
+      "author": "Vincent Van Gogh",
+      "context": "Artist, 1853-1890",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_79",
+      "themes": [
+        "self_doubt",
+        "action"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "There is only one way to avoid criticism: do nothing, say nothing, and be nothing.",
+      "author": "Aristotle",
+      "context": "Greek philosopher",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_80",
+      "themes": [
+        "criticism",
+        "action"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Ask and it will be given to you; search, and you will find; knock and the door will be opened for you.",
+      "author": "Jesus Christ",
+      "context": "Religious figure, c. 4 BCE - c. 30 CE",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_81",
+      "themes": [
+        "faith",
+        "persistence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The only person you are destined to become is the person you decide to be.",
+      "author": "Ralph Waldo Emerson",
+      "context": "Philosopher",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_82",
+      "themes": [
+        "destiny",
+        "choice"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Build your own dreams, or someone else will hire you to build theirs.",
+      "author": "Farrah Gray",
+      "context": "Businessman",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_83",
+      "themes": [
+        "entrepreneurship",
+        "dreams"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Remember that not getting what you want is sometimes a wonderful stroke of luck.",
+      "author": "Dalai Lama",
+      "context": "Spiritual leader",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_84",
+      "themes": [
+        "perspective",
+        "luck"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "You can't use up creativity. The more you use, the more you have.",
+      "author": "Maya Angelou",
+      "context": "Poet",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_85",
+      "themes": [
+        "creativity",
+        "abundance"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Dream big and dare to fail.",
+      "author": "Norman Vaughan",
+      "context": "Explorer, 1905-2005",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_86",
+      "themes": [
+        "dreams",
+        "courage"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Our lives begin to end the day we become silent about things that matter.",
+      "author": "Martin Luther King Jr.",
+      "context": "Civil rights leader",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_87",
+      "themes": [
+        "voice",
+        "justice"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Do what you can, where you are, with what you have.",
+      "author": "Teddy Roosevelt",
+      "context": "US President",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_88",
+      "themes": [
+        "action",
+        "resourcefulness"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "If you do what you've always done, you'll get what you've always gotten.",
+      "author": "Tony Robbins",
+      "context": "Life coach",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_89",
+      "themes": [
+        "change",
+        "growth"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Dreaming, after all, is a form of planning.",
+      "author": "Gloria Steinem",
+      "context": "Feminist activist",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_90",
+      "themes": [
+        "dreams",
+        "planning"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "It's your place in the world; it's your life. Go on and do all you can with it, and make it the life you want to live.",
+      "author": "Mae Jemison",
+      "context": "Astronaut",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_91",
+      "themes": [
+        "life",
+        "potential"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "You may be disappointed if you fail, but you are doomed if you don't try.",
+      "author": "Beverly Sills",
+      "context": "Opera singer, 1929-2007",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_92",
+      "themes": [
+        "trying",
+        "failure"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Remember no one can make you feel inferior without your consent.",
+      "author": "Eleanor Roosevelt",
+      "context": "First Lady",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_93",
+      "themes": [
+        "self_worth",
+        "confidence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Life is what we make it, always has been, always will be.",
+      "author": "Grandma Moses",
+      "context": "Artist, 1860-1961",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_94",
+      "themes": [
+        "life",
+        "responsibility"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The question isn't who is going to let me; it's who is going to stop me.",
+      "author": "Ayn Rand",
+      "context": "Author, 1905-1982",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_95",
+      "themes": [
+        "determination",
+        "independence"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.",
+      "author": "Henry Ford",
+      "context": "Industrialist",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_96",
+      "themes": [
+        "adversity",
+        "success"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "It's not the years in your life that count. It's the life in your years.",
+      "author": "Abraham Lincoln",
+      "context": "16th US President, 1809-1865",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_97",
+      "themes": [
+        "quality",
+        "life"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Change your thoughts and you change your world.",
+      "author": "Norman Vincent Peale",
+      "context": "Minister, 1898-1993",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_98",
+      "themes": [
+        "mindset",
+        "change"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Either write something worth reading or do something worth writing.",
+      "author": "Benjamin Franklin",
+      "context": "Founding Father, 1706-1790",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_99",
+      "themes": [
+        "action",
+        "legacy"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "Nothing is impossible, the word itself says, 'I'm possible!'",
+      "author": "Audrey Hepburn",
+      "context": "Actress, 1929-1993",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_100",
+      "themes": [
+        "possibility",
+        "optimism"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "The only way to do great work is to love what you do.",
+      "author": "Steve Jobs",
+      "context": "Entrepreneur",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_101",
+      "themes": [
+        "passion",
+        "work"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    },
+    {
+      "quote": "If you can dream it, you can achieve it.",
+      "author": "Zig Ziglar",
+      "context": "Motivational speaker",
+      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_102",
+      "themes": [
+        "dreams",
+        "achievement"
+      ],
+      "sourceName": "Historical Archives",
+      "sourceUrl": null,
+      "license": "Public Domain"
+    }
+  ]
+}

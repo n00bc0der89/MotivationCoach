@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">History Motivation Coach</string>
+    <string name="notification_channel_name">Daily Motivation</string>
+    <string name="notification_channel_description">Receive daily motivational quotes from history</string>
+</resources>

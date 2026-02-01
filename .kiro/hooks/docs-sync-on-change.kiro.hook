@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "name": "Sync Docs on Code Change",
+  "description": "Automatically updates README.md or docs when Kotlin source files, Gradle build files, or Android manifests are modified",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "*.kt",
+      "*.kts",
+      "AndroidManifest.xml",
+      "*.gradle",
+      "*.gradle.kts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the changes made to the source files and update the README.md to reflect any new features, API changes, or architectural modifications. Keep the documentation clear and up-to-date with the current implementation."
+  }
+}
