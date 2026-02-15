@@ -129,7 +129,7 @@ dependencies {
     testImplementation("io.kotest:kotest-property:5.8.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("androidx.room:room-testing:$roomVersion")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:6.2.3")
     testImplementation("org.mockito:mockito-core:5.7.0")
     testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("io.mockk:mockk-android:1.13.8")
