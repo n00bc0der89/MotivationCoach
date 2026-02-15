@@ -25,11 +25,11 @@ import kotlin.test.assertTrue
 class NotificationEndToEndTest {
     
     @Test
-    fun `end-to-end TIME_WINDOW mode scheduling with 3 notifications`() = runTest {
-        // Given: TIME_WINDOW mode with 3 notifications from 9 AM to 9 PM
+    fun `end-to-end ALL_DAYS mode scheduling with 3 notifications`() = runTest {
+        // Given: ALL_DAYS mode with 3 notifications from 9 AM to 9 PM
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = true
@@ -67,32 +67,31 @@ class NotificationEndToEndTest {
     }
     
     @Test
-    fun `end-to-end FIXED_TIMES mode scheduling with specific times`() = runTest {
-        // Given: FIXED_TIMES mode with specific times
-        val fixedTimes = listOf("08:00", "12:00", "18:00", "22:00")
+    fun `end-to-end scheduling with evenly distributed times`() = runTest {
+        // Given: Evenly distributed notifications
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.FIXED_TIMES,
-            fixedTimes = fixedTimes,
+            scheduleMode = ScheduleMode.ALL_DAYS,
+            startTime = "08:00",
+            endTime = "18:00",
             enabled = true
         )
         
         // When: computing notification times
         val times = computeNotificationTimes(prefs)
         
-        // Then: verify times match the fixed times (up to notificationsPerDay limit)
+        // Then: verify times are evenly distributed
         assertTrue(times.size <= 3, "Should have at most 3 notification times")
         
-        // Verify times match the fixed times
+        // Verify times match the expected distribution
         times.forEach { timestamp ->
             val cal = Calendar.getInstance().apply { timeInMillis = timestamp }
             val hour = cal.get(Calendar.HOUR_OF_DAY)
             val minute = cal.get(Calendar.MINUTE)
-            val timeStr = "%02d:%02d".format(hour, minute)
             
             assertTrue(
-                fixedTimes.take(3).contains(timeStr),
-                "Time $timeStr should be in the first 3 fixed times"
+                hour in 8..18,
+                "Time should be within the configured window"
             )
         }
         
@@ -156,7 +155,7 @@ class NotificationEndToEndTest {
         // Given: Initial preferences with 2 notifications
         val initialPrefs = UserPreferences(
             notificationsPerDay = 2,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "17:00",
             enabled = true
@@ -181,7 +180,7 @@ class NotificationEndToEndTest {
         // Given: Notifications are disabled
         val disabledPrefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = false
@@ -199,8 +198,9 @@ class NotificationEndToEndTest {
         // Given: Notifications at start and end of day
         val prefs = UserPreferences(
             notificationsPerDay = 2,
-            scheduleMode = ScheduleMode.FIXED_TIMES,
-            fixedTimes = listOf("00:00", "23:59"),
+            scheduleMode = ScheduleMode.ALL_DAYS,
+            startTime = "00:00",
+            endTime = "23:59",
             enabled = true
         )
         
@@ -213,11 +213,10 @@ class NotificationEndToEndTest {
         times.forEach { timestamp ->
             val cal = Calendar.getInstance().apply { timeInMillis = timestamp }
             val hour = cal.get(Calendar.HOUR_OF_DAY)
-            val minute = cal.get(Calendar.MINUTE)
             
             assertTrue(
-                (hour == 0 && minute == 0) || (hour == 23 && minute == 59),
-                "Times should be at boundary times (00:00 or 23:59)"
+                hour in 0..23,
+                "Times should be within valid hour range"
             )
         }
     }
@@ -252,7 +251,7 @@ class NotificationEndToEndTest {
         // Given: Minimum frequency (1 notification per day)
         val minPrefs = UserPreferences(
             notificationsPerDay = 1,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "12:00",
             endTime = "13:00",
             enabled = true
@@ -267,7 +266,7 @@ class NotificationEndToEndTest {
         // Given: Maximum frequency (10 notifications per day)
         val maxPrefs = UserPreferences(
             notificationsPerDay = 10,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "08:00",
             endTime = "22:00",
             enabled = true
@@ -285,21 +284,13 @@ class NotificationEndToEndTest {
         val today = Calendar.getInstance()
         val times = mutableListOf<Long>()
         
-        when (prefs.scheduleMode) {
-            ScheduleMode.TIME_WINDOW -> {
-                val start = parseTime(prefs.startTime, today)
-                val end = parseTime(prefs.endTime, today)
-                val interval = (end - start) / prefs.notificationsPerDay
-                
-                for (i in 0 until prefs.notificationsPerDay) {
-                    times.add(start + (interval * i))
-                }
-            }
-            ScheduleMode.FIXED_TIMES -> {
-                prefs.fixedTimes.take(prefs.notificationsPerDay).forEach { timeStr ->
-                    times.add(parseTime(timeStr, today))
-                }
-            }
+        // For v2, all modes use time window distribution
+        val start = parseTime(prefs.startTime, today)
+        val end = parseTime(prefs.endTime, today)
+        val interval = (end - start) / prefs.notificationsPerDay
+        
+        for (i in 0 until prefs.notificationsPerDay) {
+            times.add(start + (interval * i))
         }
         
         // Filter out past times

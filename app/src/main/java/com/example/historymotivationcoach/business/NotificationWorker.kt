@@ -43,6 +43,7 @@ class NotificationWorker(
             )
             val prefsRepo = PreferencesRepository(database.preferencesDao())
             val contentSelector = ContentSelector(motivationRepo, prefsRepo)
+            val notificationScheduler = NotificationSchedulerImpl(applicationContext, prefsRepo)
             
             // Get notification ID from input data
             val notificationId = inputData.getInt(KEY_NOTIFICATION_ID, 0)
@@ -63,6 +64,9 @@ class NotificationWorker(
             
             // 5. Build and show notification with PendingIntent
             showNotification(motivation, notificationId)
+            
+            // 6. Schedule the next notification (Requirement 7.4)
+            notificationScheduler.scheduleNextNotification()
             
             Result.success()
         } catch (e: Exception) {

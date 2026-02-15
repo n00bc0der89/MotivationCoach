@@ -13,21 +13,24 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import kotlin.random.Random
 
 /**
  * ViewModel for the Home screen.
  * Manages the state of the latest motivation display and today's statistics.
  * 
- * Requirements: 12.1, 12.2, 12.3, 12.4
+ * Requirements: 12.1, 12.2, 12.3, 12.4, 3.2, 3.4, 3.5
  */
 class HomeViewModel(
     private val motivationRepository: MotivationRepository,
-    private val preferencesRepository: PreferencesRepository
+    private val preferencesRepository: PreferencesRepository,
+    private val notificationScheduler: com.example.historymotivationcoach.business.NotificationScheduler
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    
+    private val _manualTriggerState = MutableStateFlow<ManualTriggerState>(ManualTriggerState.Idle)
+    val manualTriggerState: StateFlow<ManualTriggerState> = _manualTriggerState.asStateFlow()
     
     private val contentSelector = ContentSelector(motivationRepository, preferencesRepository)
     
@@ -80,37 +83,29 @@ class HomeViewModel(
      * 
      * This method:
      * 1. Checks if content is exhausted
-     * 2. Selects a random unseen motivation
-     * 3. Records it in delivery history
-     * 4. Reloads the UI to show the new motivation
+     * 2. Triggers the notification via NotificationScheduler
+     * 3. Updates the manual trigger state
+     * 4. Refreshes the UI to show the new motivation
      * 
-     * Requirements: 12.4
+     * Requirements: 3.2, 3.4, 3.5
      */
     fun triggerManualNotification() {
         viewModelScope.launch {
             try {
                 // Show loading state
-                _uiState.value = HomeUiState.Loading
+                _manualTriggerState.value = ManualTriggerState.Loading
                 
-                // Check if content is exhausted
-                if (contentSelector.isContentExhausted()) {
-                    _uiState.value = HomeUiState.ContentExhausted
-                    return@launch
+                // Trigger manual notification via scheduler
+                val motivationId = notificationScheduler.triggerManualNotification()
+                
+                if (motivationId != null) {
+                    // Success - update state and refresh
+                    _manualTriggerState.value = ManualTriggerState.Success(motivationId)
+                    refreshLatestMotivation()
+                } else {
+                    // Failed - likely content exhausted
+                    _manualTriggerState.value = ManualTriggerState.Error("No unseen motivations available")
                 }
-                
-                // Select next motivation
-                val motivation = contentSelector.selectNextMotivation()
-                if (motivation == null) {
-                    _uiState.value = HomeUiState.ContentExhausted
-                    return@launch
-                }
-                
-                // Record delivery with a random notification ID for manual triggers
-                val notificationId = Random.nextInt(10000, 99999)
-                motivationRepository.recordDelivery(motivation.id, notificationId)
-                
-                // Reload to show the new motivation
-                loadLatestMotivation()
             } catch (e: Exception) {
                 // Provide user-friendly error message
                 val message = when (e) {
@@ -118,9 +113,25 @@ class HomeViewModel(
                         "Unable to deliver motivation. Please try again."
                     else -> "An unexpected error occurred. Please try again."
                 }
-                _uiState.value = HomeUiState.Error(message)
+                _manualTriggerState.value = ManualTriggerState.Error(message)
+            } finally {
+                // Reset to idle after a short delay
+                viewModelScope.launch {
+                    kotlinx.coroutines.delay(2000)
+                    _manualTriggerState.value = ManualTriggerState.Idle
+                }
             }
         }
+    }
+    
+    /**
+     * Refresh the latest motivation display.
+     * Called after manual notification to update the UI.
+     * 
+     * Requirements: 3.5
+     */
+    fun refreshLatestMotivation() {
+        loadLatestMotivation()
     }
     
     /**
@@ -176,4 +187,36 @@ sealed class HomeUiState {
      * @param message The error message to display
      */
     data class Error(val message: String) : HomeUiState()
+}
+
+/**
+ * State for manual notification triggering.
+ * Tracks the progress and result of manual notification requests.
+ * 
+ * Requirements: 3.2, 3.4, 3.5
+ */
+sealed class ManualTriggerState {
+    /**
+     * Idle state - no manual trigger in progress.
+     */
+    object Idle : ManualTriggerState()
+    
+    /**
+     * Loading state - manual notification is being triggered.
+     */
+    object Loading : ManualTriggerState()
+    
+    /**
+     * Success state - manual notification was delivered successfully.
+     * 
+     * @param motivationId The ID of the delivered motivation
+     */
+    data class Success(val motivationId: Long) : ManualTriggerState()
+    
+    /**
+     * Error state - manual notification failed.
+     * 
+     * @param message The error message to display
+     */
+    data class Error(val message: String) : ManualTriggerState()
 }

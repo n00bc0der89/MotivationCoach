@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.historymotivationcoach.data.dao.MotivationWithHistory
-import com.example.historymotivationcoach.ui.components.MotivationImage
+import com.example.historymotivationcoach.ui.components.PersonalityImage
 import com.example.historymotivationcoach.viewmodel.HistoryGroup
 import com.example.historymotivationcoach.viewmodel.HistoryUiState
 import com.example.historymotivationcoach.viewmodel.HistoryViewModel
@@ -306,7 +306,7 @@ private fun HistoryCard(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Thumbnail image
-            MotivationImage(
+            PersonalityImage(
                 imageUri = motivation.item.imageUri,
                 contentDescription = "Thumbnail for ${motivation.item.author}",
                 modifier = Modifier

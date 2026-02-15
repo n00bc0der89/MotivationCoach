@@ -30,6 +30,7 @@ class HomeViewModelTest {
     
     private lateinit var motivationRepository: MotivationRepository
     private lateinit var preferencesRepository: PreferencesRepository
+    private lateinit var notificationScheduler: com.example.historymotivationcoach.business.NotificationScheduler
     private lateinit var viewModel: HomeViewModel
     private val testDispatcher = StandardTestDispatcher()
     
@@ -38,6 +39,7 @@ class HomeViewModelTest {
         Dispatchers.setMain(testDispatcher)
         motivationRepository = mock()
         preferencesRepository = mock()
+        notificationScheduler = mock()
     }
     
     @After
@@ -47,7 +49,7 @@ class HomeViewModelTest {
     
     @Test
     fun `initial state is Loading`() = runTest {
-        viewModel = HomeViewModel(motivationRepository, preferencesRepository)
+        viewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
         
         val initialState = viewModel.uiState.value
         assertTrue(initialState is HomeUiState.Loading)
@@ -61,7 +63,7 @@ class HomeViewModelTest {
         whenever(motivationRepository.getHistoryByDate(today)).thenReturn(listOf(mockMotivation))
         whenever(motivationRepository.getUnseenCount()).thenReturn(50)
         
-        viewModel = HomeViewModel(motivationRepository, preferencesRepository)
+        viewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
         advanceUntilIdle()
         
         val state = viewModel.uiState.first()
@@ -78,7 +80,7 @@ class HomeViewModelTest {
         whenever(motivationRepository.getHistoryByDate(today)).thenReturn(emptyList())
         whenever(motivationRepository.getUnseenCount()).thenReturn(100)
         
-        viewModel = HomeViewModel(motivationRepository, preferencesRepository)
+        viewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
         advanceUntilIdle()
         
         val state = viewModel.uiState.first()
@@ -92,7 +94,7 @@ class HomeViewModelTest {
         
         whenever(motivationRepository.getHistoryByDate(today)).thenThrow(RuntimeException("Database error"))
         
-        viewModel = HomeViewModel(motivationRepository, preferencesRepository)
+        viewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
         advanceUntilIdle()
         
         val state = viewModel.uiState.first()
@@ -114,7 +116,7 @@ class HomeViewModelTest {
         )
         whenever(motivationRepository.getUnseenCount()).thenReturn(25)
         
-        viewModel = HomeViewModel(motivationRepository, preferencesRepository)
+        viewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
         advanceUntilIdle()
         
         val state = viewModel.uiState.first()
@@ -134,8 +136,9 @@ class HomeViewModelTest {
         whenever(motivationRepository.getUnseenCount()).thenReturn(50)
         whenever(preferencesRepository.getPreferences()).thenReturn(UserPreferences())
         whenever(motivationRepository.selectRandomUnseen(emptyList())).thenReturn(newMotivation.item)
+        whenever(notificationScheduler.triggerManualNotification()).thenReturn(2L)
         
-        viewModel = HomeViewModel(motivationRepository, preferencesRepository)
+        viewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
         advanceUntilIdle()
         
         // Trigger manual notification

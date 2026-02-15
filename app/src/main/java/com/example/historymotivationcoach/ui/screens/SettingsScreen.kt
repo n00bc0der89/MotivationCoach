@@ -17,6 +17,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.example.historymotivationcoach.data.entity.ScheduleMode
 import com.example.historymotivationcoach.viewmodel.SettingsViewModel
+import com.example.historymotivationcoach.viewmodel.ValidationState
+import java.time.DayOfWeek
 import kotlin.math.roundToInt
 
 /**
@@ -34,7 +36,10 @@ fun SettingsScreen(
     val context = LocalContext.current
     val preferences by viewModel.preferences.collectAsState()
     val notificationsEnabled by viewModel.notificationsEnabled.collectAsState()
+    val validationState by viewModel.validationState.collectAsState()
     var showClearHistoryDialog by remember { mutableStateOf(false) }
+    var showStartTimePicker by remember { mutableStateOf(false) }
+    var showEndTimePicker by remember { mutableStateOf(false) }
     
     // Refresh notification status when screen is displayed
     LaunchedEffect(Unit) {
@@ -174,54 +179,146 @@ fun SettingsScreen(
         // Schedule mode selector
         SettingCard {
             Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
                     text = "Schedule Mode",
                     style = MaterialTheme.typography.titleMedium
                 )
+                Text(
+                    text = "Choose when to receive notifications",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
                 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                // All Days option
+                FilterChip(
+                    selected = preferences.scheduleMode == ScheduleMode.ALL_DAYS,
+                    onClick = { viewModel.updateScheduleMode(ScheduleMode.ALL_DAYS) },
+                    label = { Text("All Days") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .semantics {
+                            contentDescription = if (preferences.scheduleMode == ScheduleMode.ALL_DAYS) {
+                                "All Days mode selected"
+                            } else {
+                                "All Days mode. Tap to select."
+                            }
+                        },
+                    enabled = preferences.enabled
+                )
+                
+                // Weekdays Only option
+                FilterChip(
+                    selected = preferences.scheduleMode == ScheduleMode.WEEKDAYS_ONLY,
+                    onClick = { viewModel.updateScheduleMode(ScheduleMode.WEEKDAYS_ONLY) },
+                    label = { Text("Weekdays Only (Mon-Fri)") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .semantics {
+                            contentDescription = if (preferences.scheduleMode == ScheduleMode.WEEKDAYS_ONLY) {
+                                "Weekdays Only mode selected"
+                            } else {
+                                "Weekdays Only mode. Tap to select."
+                            }
+                        },
+                    enabled = preferences.enabled
+                )
+                
+                // Weekends Only option
+                FilterChip(
+                    selected = preferences.scheduleMode == ScheduleMode.WEEKENDS_ONLY,
+                    onClick = { viewModel.updateScheduleMode(ScheduleMode.WEEKENDS_ONLY) },
+                    label = { Text("Weekends Only (Sat-Sun)") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .semantics {
+                            contentDescription = if (preferences.scheduleMode == ScheduleMode.WEEKENDS_ONLY) {
+                                "Weekends Only mode selected"
+                            } else {
+                                "Weekends Only mode. Tap to select."
+                            }
+                        },
+                    enabled = preferences.enabled
+                )
+                
+                // Custom Days option
+                FilterChip(
+                    selected = preferences.scheduleMode == ScheduleMode.CUSTOM_DAYS,
+                    onClick = { viewModel.updateScheduleMode(ScheduleMode.CUSTOM_DAYS) },
+                    label = { Text("Custom Days") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .semantics {
+                            contentDescription = if (preferences.scheduleMode == ScheduleMode.CUSTOM_DAYS) {
+                                "Custom Days mode selected"
+                            } else {
+                                "Custom Days mode. Tap to select."
+                            }
+                        },
+                    enabled = preferences.enabled
+                )
+                
+                // Custom days selection (shown only when CUSTOM_DAYS is selected)
+                AnimatedVisibility(
+                    visible = preferences.scheduleMode == ScheduleMode.CUSTOM_DAYS,
+                    enter = expandVertically(
+                        animationSpec = tween(300)
+                    ) + fadeIn(animationSpec = tween(300)),
+                    exit = shrinkVertically(
+                        animationSpec = tween(300)
+                    ) + fadeOut(animationSpec = tween(300))
                 ) {
-                    FilterChip(
-                        selected = preferences.scheduleMode == ScheduleMode.TIME_WINDOW,
-                        onClick = { viewModel.updateScheduleMode(ScheduleMode.TIME_WINDOW) },
-                        label = { Text("Time Window") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .semantics {
-                                contentDescription = if (preferences.scheduleMode == ScheduleMode.TIME_WINDOW) {
-                                    "Time Window mode selected"
-                                } else {
-                                    "Time Window mode. Tap to select."
-                                }
-                            },
-                        enabled = preferences.enabled
-                    )
-                    FilterChip(
-                        selected = preferences.scheduleMode == ScheduleMode.FIXED_TIMES,
-                        onClick = { viewModel.updateScheduleMode(ScheduleMode.FIXED_TIMES) },
-                        label = { Text("Fixed Times") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .semantics {
-                                contentDescription = if (preferences.scheduleMode == ScheduleMode.FIXED_TIMES) {
-                                    "Fixed Times mode selected"
-                                } else {
-                                    "Fixed Times mode. Tap to select."
-                                }
-                            },
-                        enabled = preferences.enabled
-                    )
+                    Column(
+                        modifier = Modifier.padding(top = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "Select Days",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        
+                        // Day checkboxes
+                        DayOfWeek.values().forEach { day ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = day.name.lowercase().replaceFirstChar { it.uppercase() },
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                                Checkbox(
+                                    checked = preferences.customDays.contains(day),
+                                    onCheckedChange = { checked ->
+                                        val newDays = if (checked) {
+                                            preferences.customDays + day
+                                        } else {
+                                            preferences.customDays - day
+                                        }
+                                        viewModel.updateCustomDays(newDays)
+                                    },
+                                    enabled = preferences.enabled,
+                                    modifier = Modifier.semantics {
+                                        contentDescription = if (preferences.customDays.contains(day)) {
+                                            "${day.name} selected"
+                                        } else {
+                                            "${day.name} not selected"
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
         
-        // Time window settings (only shown in TIME_WINDOW mode)
+        // Time window settings (shown for all modes in v2)
         AnimatedVisibility(
-            visible = preferences.scheduleMode == ScheduleMode.TIME_WINDOW,
+            visible = true,
             enter = expandVertically(
                 animationSpec = tween(300)
             ) + fadeIn(animationSpec = tween(300)),
@@ -238,6 +335,12 @@ fun SettingsScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
                     
+                    Text(
+                        text = "Set the time range for notifications",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -250,7 +353,7 @@ fun SettingsScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             OutlinedButton(
-                                onClick = { /* TODO: Show time picker */ },
+                                onClick = { showStartTimePicker = true },
                                 modifier = Modifier.fillMaxWidth(),
                                 enabled = preferences.enabled
                             ) {
@@ -266,7 +369,7 @@ fun SettingsScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             OutlinedButton(
-                                onClick = { /* TODO: Show time picker */ },
+                                onClick = { showEndTimePicker = true },
                                 modifier = Modifier.fillMaxWidth(),
                                 enabled = preferences.enabled
                             ) {
@@ -275,73 +378,25 @@ fun SettingsScreen(
                         }
                     }
                     
-                    Text(
-                        text = "Notifications will be evenly distributed between these times",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-        }
-        
-        // Fixed times settings (only shown in FIXED_TIMES mode)
-        AnimatedVisibility(
-            visible = preferences.scheduleMode == ScheduleMode.FIXED_TIMES,
-            enter = expandVertically(
-                animationSpec = tween(300)
-            ) + fadeIn(animationSpec = tween(300)),
-            exit = shrinkVertically(
-                animationSpec = tween(300)
-            ) + fadeOut(animationSpec = tween(300))
-        ) {
-            SettingCard {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Text(
-                        text = "Fixed Times",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    
-                    if (preferences.fixedTimes.isEmpty()) {
-                        Text(
-                            text = "No fixed times configured. Add times below.",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    } else {
-                        preferences.fixedTimes.take(preferences.notificationsPerDay).forEach { time ->
-                            OutlinedCard(
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .padding(12.dp)
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(
-                                        text = time,
-                                        style = MaterialTheme.typography.bodyLarge
-                                    )
-                                    TextButton(
-                                        onClick = { /* TODO: Remove time */ },
-                                        enabled = preferences.enabled
-                                    ) {
-                                        Text("Remove")
-                                    }
-                                }
+                    // Validation error messages
+                    when (val state = validationState) {
+                        is ValidationState.Invalid -> {
+                            state.errors.forEach { error ->
+                                Text(
+                                    text = "⚠️ $error",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.error,
+                                    modifier = Modifier.padding(top = 4.dp)
+                                )
                             }
                         }
-                    }
-                    
-                    OutlinedButton(
-                        onClick = { /* TODO: Add time */ },
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = preferences.enabled
-                    ) {
-                        Text("Add Time")
+                        ValidationState.Valid -> {
+                            Text(
+                                text = "Notifications will be evenly distributed between these times",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }
@@ -371,6 +426,30 @@ fun SettingsScreen(
                 }
             }
         }
+    }
+    
+    // Start time picker dialog
+    if (showStartTimePicker) {
+        TimePickerDialog(
+            currentTime = preferences.startTime,
+            onTimeSelected = { time ->
+                viewModel.updateTimeWindow(time, preferences.endTime)
+                showStartTimePicker = false
+            },
+            onDismiss = { showStartTimePicker = false }
+        )
+    }
+    
+    // End time picker dialog
+    if (showEndTimePicker) {
+        TimePickerDialog(
+            currentTime = preferences.endTime,
+            onTimeSelected = { time ->
+                viewModel.updateTimeWindow(preferences.startTime, time)
+                showEndTimePicker = false
+            },
+            onDismiss = { showEndTimePicker = false }
+        )
     }
     
     // Clear history confirmation dialog
@@ -412,4 +491,55 @@ private fun SettingCard(
             content = content
         )
     }
+}
+
+/**
+ * Time picker dialog for selecting notification times.
+ * Uses Material3 TimePicker component.
+ * 
+ * Requirements: 5.1, 8.3
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TimePickerDialog(
+    currentTime: String,
+    onTimeSelected: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    // Parse current time
+    val timeParts = currentTime.split(":")
+    val initialHour = timeParts.getOrNull(0)?.toIntOrNull() ?: 9
+    val initialMinute = timeParts.getOrNull(1)?.toIntOrNull() ?: 0
+    
+    val timePickerState = rememberTimePickerState(
+        initialHour = initialHour,
+        initialMinute = initialMinute,
+        is24Hour = true
+    )
+    
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    val hour = timePickerState.hour.toString().padStart(2, '0')
+                    val minute = timePickerState.minute.toString().padStart(2, '0')
+                    onTimeSelected("$hour:$minute")
+                }
+            ) {
+                Text("OK")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        },
+        text = {
+            TimePicker(
+                state = timePickerState,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+    )
 }

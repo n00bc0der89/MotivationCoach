@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.historymotivationcoach.business.NotificationScheduler
+import com.example.historymotivationcoach.business.NotificationSchedulerImpl
 import com.example.historymotivationcoach.data.AppDatabase
 import com.example.historymotivationcoach.data.repository.MotivationRepository
 import com.example.historymotivationcoach.data.repository.PreferencesRepository
@@ -103,10 +104,10 @@ fun MainAppContent(initialMotivationId: Long? = null) {
         database.historyDao()
     )
     val preferencesRepository = PreferencesRepository(database.preferencesDao())
-    val notificationScheduler = NotificationScheduler(context, preferencesRepository)
+    val notificationScheduler: NotificationScheduler = NotificationSchedulerImpl(context, preferencesRepository)
     
     // Create ViewModels
-    val homeViewModel = HomeViewModel(motivationRepository, preferencesRepository)
+    val homeViewModel = HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)
     val historyViewModel = HistoryViewModel(motivationRepository)
     val settingsViewModel = SettingsViewModel(
         context,

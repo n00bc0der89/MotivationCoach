@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.historymotivationcoach.data.AppDatabase
 import com.example.historymotivationcoach.data.dao.MotivationWithHistory
 import com.example.historymotivationcoach.data.repository.MotivationRepository
-import com.example.historymotivationcoach.ui.components.MotivationImage
+import com.example.historymotivationcoach.ui.components.PersonalityImage
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -224,13 +224,13 @@ private fun DetailContent(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Full-size image
-        MotivationImage(
+        // Full-size personality image - larger than home screen
+        PersonalityImage(
             imageUri = motivation.item.imageUri,
             contentDescription = "Image for ${motivation.item.author}",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp),
+                .height(400.dp),
             contentScale = ContentScale.Crop
         )
         

@@ -4,6 +4,7 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -12,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.contentDescription
@@ -19,9 +21,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.historymotivationcoach.data.dao.MotivationWithHistory
-import com.example.historymotivationcoach.ui.components.MotivationImage
+import com.example.historymotivationcoach.ui.components.PersonalityImage
 import com.example.historymotivationcoach.viewmodel.HomeUiState
 import com.example.historymotivationcoach.viewmodel.HomeViewModel
+import com.example.historymotivationcoach.viewmodel.ManualTriggerState
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -29,7 +32,7 @@ import java.util.Locale
 /**
  * Home screen that displays the latest motivation and today's statistics.
  * 
- * Requirements: 12.1, 12.2, 12.3, 12.4, 18.1, 18.2
+ * Requirements: 2.1, 2.2, 2.4, 2.5, 2.7, 3.1, 12.1, 12.2, 12.3, 12.4, 18.1, 18.2
  * 
  * @param viewModel The HomeViewModel that manages the screen state
  * @param onMotivationClick Callback when a motivation card is clicked
@@ -42,45 +45,69 @@ fun HomeScreen(
     onNavigateToSettings: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val manualTriggerState by viewModel.manualTriggerState.collectAsState()
     
-    // Animated content with crossfade
-    AnimatedContent(
-        targetState = uiState,
-        transitionSpec = {
-            fadeIn(animationSpec = tween(300)) togetherWith
-                    fadeOut(animationSpec = tween(300))
-        },
-        label = "home_screen_content"
-    ) { state ->
-        when (state) {
-            is HomeUiState.Loading -> {
-                LoadingContent()
+    // Show snackbar for manual trigger feedback
+    val snackbarHostState = androidx.compose.material3.SnackbarHostState()
+    
+    androidx.compose.runtime.LaunchedEffect(manualTriggerState) {
+        when (manualTriggerState) {
+            is ManualTriggerState.Success -> {
+                snackbarHostState.showSnackbar("Motivation delivered!")
             }
-            is HomeUiState.Success -> {
-                SuccessContent(
-                    motivation = state.latestMotivation,
-                    todayCount = state.todayCount,
-                    unseenCount = state.unseenCount,
-                    onMotivationClick = onMotivationClick,
-                    onSendNowClick = { viewModel.triggerManualNotification() }
-                )
+            is ManualTriggerState.Error -> {
+                snackbarHostState.showSnackbar((manualTriggerState as ManualTriggerState.Error).message)
             }
-            is HomeUiState.Empty -> {
-                EmptyContent(
-                    unseenCount = state.unseenCount,
-                    onSendNowClick = { viewModel.triggerManualNotification() }
-                )
-            }
-            is HomeUiState.ContentExhausted -> {
-                ContentExhaustedContent(
-                    onReplayClassicsClick = onNavigateToSettings
-                )
-            }
-            is HomeUiState.Error -> {
-                ErrorContent(
-                    message = state.message,
-                    onRetryClick = { viewModel.loadLatestMotivation() }
-                )
+            else -> {}
+        }
+    }
+    
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues)) {
+            // Animated content with crossfade
+            AnimatedContent(
+                targetState = uiState,
+                transitionSpec = {
+                    fadeIn(animationSpec = tween(300)) togetherWith
+                            fadeOut(animationSpec = tween(300))
+                },
+                label = "home_screen_content"
+            ) { state ->
+                when (state) {
+                    is HomeUiState.Loading -> {
+                        LoadingContent()
+                    }
+                    is HomeUiState.Success -> {
+                        SuccessContent(
+                            motivation = state.latestMotivation,
+                            todayCount = state.todayCount,
+                            unseenCount = state.unseenCount,
+                            onMotivationClick = onMotivationClick,
+                            onSendNowClick = { viewModel.triggerManualNotification() },
+                            isManualTriggerLoading = manualTriggerState is ManualTriggerState.Loading
+                        )
+                    }
+                    is HomeUiState.Empty -> {
+                        EmptyContent(
+                            unseenCount = state.unseenCount,
+                            onSendNowClick = { viewModel.triggerManualNotification() },
+                            isManualTriggerLoading = manualTriggerState is ManualTriggerState.Loading
+                        )
+                    }
+                    is HomeUiState.ContentExhausted -> {
+                        ContentExhaustedContent(
+                            onReplayClassicsClick = onNavigateToSettings
+                        )
+                    }
+                    is HomeUiState.Error -> {
+                        ErrorContent(
+                            message = state.message,
+                            onRetryClick = { viewModel.loadLatestMotivation() }
+                        )
+                    }
+                }
             }
         }
     }
@@ -131,36 +158,59 @@ private fun SuccessContent(
     todayCount: Int,
     unseenCount: Int,
     onMotivationClick: (Long) -> Unit,
-    onSendNowClick: () -> Unit
+    onSendNowClick: () -> Unit,
+    isManualTriggerLoading: Boolean
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Header with statistics
-        Text(
-            text = "Today's Motivation",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground
-        )
+        // Header with philosophical styling
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = "Daily Wisdom",
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Inspiration from history's greatest minds",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
         
+        // Statistics cards with enhanced design
         StatsRow(todayCount = todayCount, unseenCount = unseenCount)
         
-        // Latest motivation card
-        MotivationCard(
+        // Latest motivation card with philosophical theme
+        PhilosophicalMotivationCard(
             motivation = motivation,
             onClick = { onMotivationClick(motivation.item.id) }
         )
         
-        // Send one now button
+        // Send Manual Notification button
         Button(
             onClick = onSendNowClick,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = !isManualTriggerLoading,
+            shape = RoundedCornerShape(12.dp)
         ) {
-            Text("Send one now")
+            if (isManualTriggerLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+            Text(
+                text = if (isManualTriggerLoading) "Delivering..." else "Send Manual Notification",
+                style = MaterialTheme.typography.labelLarge
+            )
         }
     }
 }
@@ -168,7 +218,8 @@ private fun SuccessContent(
 @Composable
 private fun EmptyContent(
     unseenCount: Int,
-    onSendNowClick: () -> Unit
+    onSendNowClick: () -> Unit,
+    isManualTriggerLoading: Boolean
 ) {
     // Scale animation for empty state
     val scale by rememberInfiniteTransition(label = "empty_scale").animateFloat(
@@ -189,7 +240,7 @@ private fun EmptyContent(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
                 text = "✨",
@@ -197,13 +248,13 @@ private fun EmptyContent(
                 modifier = Modifier.scale(scale)
             )
             Text(
-                text = "No motivations yet today",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onBackground,
+                text = "Begin Your Journey",
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "You have $unseenCount unseen motivations waiting for you.",
+                text = "You have $unseenCount pieces of wisdom waiting to inspire you.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -211,9 +262,21 @@ private fun EmptyContent(
             Spacer(modifier = Modifier.height(8.dp))
             Button(
                 onClick = onSendNowClick,
-                modifier = Modifier.fillMaxWidth(0.7f)
+                modifier = Modifier.fillMaxWidth(0.8f),
+                enabled = !isManualTriggerLoading,
+                shape = RoundedCornerShape(12.dp)
             ) {
-                Text("Send one now")
+                if (isManualTriggerLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+                Text(
+                    text = if (isManualTriggerLoading) "Delivering..." else "Receive Wisdom Now",
+                    style = MaterialTheme.typography.labelLarge
+                )
             }
         }
     }
@@ -312,15 +375,17 @@ private fun StatsRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         StatCard(
-            label = "Today",
-            value = todayCount.toString()
+            label = "Received Today",
+            value = todayCount.toString(),
+            modifier = Modifier.weight(1f)
         )
         StatCard(
-            label = "Unseen",
-            value = unseenCount.toString()
+            label = "Awaiting Discovery",
+            value = unseenCount.toString(),
+            modifier = Modifier.weight(1f)
         )
     }
 }
@@ -328,26 +393,33 @@ private fun StatsRow(
 @Composable
 private fun StatCard(
     label: String,
-    value: String
+    value: String,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier.width(150.dp)
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        ),
+        shape = RoundedCornerShape(16.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(20.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = value,
-                style = MaterialTheme.typography.displaySmall,
-                color = MaterialTheme.colorScheme.primary
+                style = MaterialTheme.typography.displayMedium,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
                 text = label,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -355,7 +427,7 @@ private fun StatCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MotivationCard(
+private fun PhilosophicalMotivationCard(
     motivation: MotivationWithHistory,
     onClick: () -> Unit
 ) {
@@ -365,69 +437,89 @@ private fun MotivationCard(
             .fillMaxWidth()
             .semantics {
                 contentDescription = "Motivation card: ${motivation.item.quote.take(50)}... by ${motivation.item.author}. Tap to view details."
-            }
+            },
+        shape = RoundedCornerShape(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = Modifier.padding(0.dp),
+            verticalArrangement = Arrangement.spacedBy(0.dp)
         ) {
-            // Image
-            MotivationImage(
+            // Personality Image with enhanced styling
+            PersonalityImage(
                 imageUri = motivation.item.imageUri,
-                contentDescription = "Motivation image for ${motivation.item.author}",
+                contentDescription = "Portrait of ${motivation.item.author}",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(240.dp)
+                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
                 contentScale = ContentScale.Crop
             )
             
-            // Quote
-            Text(
-                text = "\"${motivation.item.quote}\"",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            
-            // Author
-            Text(
-                text = "— ${motivation.item.author}",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            
-            // Context (if available)
-            motivation.item.context?.let { context ->
+            // Content section with padding
+            Column(
+                modifier = Modifier.padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Quote with enhanced typography
                 Text(
-                    text = context,
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "\"${motivation.item.quote}\"",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    lineHeight = MaterialTheme.typography.headlineSmall.lineHeight
+                )
+                
+                // Author with philosophical styling
+                Text(
+                    text = "— ${motivation.item.author}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                
+                // Context (if available)
+                motivation.item.context?.let { context ->
+                    Text(
+                        text = context,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        lineHeight = MaterialTheme.typography.bodyMedium.lineHeight
+                    )
+                }
+                
+                // Themes with enhanced chip design
+                if (motivation.item.themes.isNotEmpty()) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        motivation.item.themes.take(3).forEach { theme ->
+                            SuggestionChip(
+                                onClick = {},
+                                label = { 
+                                    Text(
+                                        theme,
+                                        style = MaterialTheme.typography.labelMedium
+                                    ) 
+                                },
+                                modifier = Modifier.semantics {
+                                    contentDescription = "Theme: $theme"
+                                }
+                            )
+                        }
+                    }
+                }
+                
+                // Timestamp with subtle styling
+                Divider(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+                Text(
+                    text = "Delivered ${formatTimestamp(motivation.shownAt)}",
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            
-            // Themes
-            if (motivation.item.themes.isNotEmpty()) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    motivation.item.themes.take(3).forEach { theme ->
-                        SuggestionChip(
-                            onClick = {},
-                            label = { Text(theme) },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Theme: $theme"
-                            }
-                        )
-                    }
-                }
-            }
-            
-            // Timestamp
-            Text(
-                text = "Delivered ${formatTimestamp(motivation.shownAt)}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
         }
     }
 }

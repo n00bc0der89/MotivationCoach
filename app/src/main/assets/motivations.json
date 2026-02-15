@@ -4,7 +4,7 @@
       "quote": "The only way to do great work is to love what you do.",
       "author": "Steve Jobs",
       "context": "From Stanford commencement speech, 2005",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/steve_jobs",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
       "themes": [
         "work",
         "passion",
@@ -18,7 +18,7 @@
       "quote": "In the end, we will remember not the words of our enemies, but the silence of our friends.",
       "author": "Martin Luther King Jr.",
       "context": "Civil rights leader and activist, 1929-1968",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/mlk",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King%2C_Jr..jpg",
       "themes": [
         "friendship",
         "courage",
@@ -32,7 +32,7 @@
       "quote": "The future belongs to those who believe in the beauty of their dreams.",
       "author": "Eleanor Roosevelt",
       "context": "First Lady of the United States, 1933-1945",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/eleanor_roosevelt",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/7/73/Eleanor_Roosevelt_portrait_1933.jpg",
       "themes": [
         "dreams",
         "future",
@@ -46,7 +46,7 @@
       "quote": "It is during our darkest moments that we must focus to see the light.",
       "author": "Aristotle",
       "context": "Ancient Greek philosopher, 384-322 BCE",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/aristotle",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Aristotle_Altemps_Inv8575.jpg",
       "themes": [
         "perseverance",
         "hope",
@@ -60,7 +60,7 @@
       "quote": "The way to get started is to quit talking and begin doing.",
       "author": "Walt Disney",
       "context": "American entrepreneur and animator, 1901-1966",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/walt_disney",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/df/Walt_Disney_1946.JPG",
       "themes": [
         "action",
         "initiative",
@@ -74,7 +74,7 @@
       "quote": "Don't let yesterday take up too much of today.",
       "author": "Will Rogers",
       "context": "American humorist, 1879-1935",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_6",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Will+Rogers",
       "themes": [
         "present",
         "mindfulness"
@@ -87,7 +87,7 @@
       "quote": "You learn more from failure than from success.",
       "author": "Unknown",
       "context": "Popular wisdom",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_7",
+      "imageUri": "https://via.placeholder.com/440x440/6366f1/ffffff?text=Wisdom",
       "themes": [
         "failure",
         "learning"
@@ -100,7 +100,7 @@
       "quote": "It's not whether you get knocked down, it's whether you get up.",
       "author": "Vince Lombardi",
       "context": "NFL coach, 1913-1970",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_8",
+      "imageUri": "https://via.placeholder.com/440x440/ec4899/ffffff?text=Vince+Lombardi",
       "themes": [
         "resilience",
         "sports"
@@ -113,7 +113,7 @@
       "quote": "If you are working on something you care about, you don't have to be pushed.",
       "author": "Steve Jobs",
       "context": "Apple co-founder",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_9",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
       "themes": [
         "passion",
         "motivation"
@@ -126,7 +126,7 @@
       "quote": "People crazy enough to think they can change the world, are the ones who do.",
       "author": "Rob Siltanen",
       "context": "Think Different campaign, 1997",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_10",
+      "imageUri": "https://via.placeholder.com/440x440/f59e0b/ffffff?text=Rob+Siltanen",
       "themes": [
         "innovation",
         "change"
@@ -139,7 +139,7 @@
       "quote": "Failure will never overtake me if my determination is strong enough.",
       "author": "Og Mandino",
       "context": "Author, 1923-1996",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_11",
+      "imageUri": "https://via.placeholder.com/440x440/10b981/ffffff?text=Og+Mandino",
       "themes": [
         "determination",
         "success"
@@ -152,7 +152,7 @@
       "quote": "Believe you can and you're halfway there.",
       "author": "Theodore Roosevelt",
       "context": "26th US President, 1858-1919",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_12",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/19/President_Roosevelt_-_Pach_Bros.jpg",
       "themes": [
         "belief",
         "confidence"
@@ -165,7 +165,7 @@
       "quote": "We may encounter many defeats but we must not be defeated.",
       "author": "Maya Angelou",
       "context": "Poet and activist, 1928-2014",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_13",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg",
       "themes": [
         "resilience",
         "courage"
@@ -178,7 +178,7 @@
       "quote": "Knowing is not enough; we must apply. Wishing is not enough; we must do.",
       "author": "Johann Wolfgang von Goethe",
       "context": "German writer, 1749-1832",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_14",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Goethe_%28Stieler_1828%29.jpg",
       "themes": [
         "action",
         "knowledge"
@@ -191,7 +191,7 @@
       "quote": "Imagine your life is perfect in every respect; what would it look like?",
       "author": "Brian Tracy",
       "context": "Motivational speaker",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_15",
+      "imageUri": "https://via.placeholder.com/440x440/3b82f6/ffffff?text=Brian+Tracy",
       "themes": [
         "vision",
         "goals"
@@ -204,7 +204,7 @@
       "quote": "We generate fears while we sit. We overcome them by action.",
       "author": "Dr. Henry Link",
       "context": "Psychologist, 1889-1952",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_16",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Dr.+Link",
       "themes": [
         "action",
         "fear"
@@ -217,7 +217,7 @@
       "quote": "Whether you think you can or think you can't, you're right.",
       "author": "Henry Ford",
       "context": "Industrialist, 1863-1947",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_17",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/18/Henry_ford_1919.jpg",
       "themes": [
         "mindset",
         "belief"
@@ -230,7 +230,7 @@
       "quote": "Security is mostly a superstition. Life is either a daring adventure or nothing.",
       "author": "Helen Keller",
       "context": "Author, 1880-1968",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_18",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Helen_Keller_circa_1920_-_restored.jpg",
       "themes": [
         "courage",
         "adventure"
@@ -243,7 +243,7 @@
       "quote": "The man who has confidence in himself gains the confidence of others.",
       "author": "Hasidic Proverb",
       "context": "Traditional wisdom",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_19",
+      "imageUri": "https://via.placeholder.com/440x440/6366f1/ffffff?text=Wisdom",
       "themes": [
         "confidence",
         "leadership"
@@ -256,7 +256,7 @@
       "quote": "The only limit to our realization of tomorrow will be our doubts of today.",
       "author": "Franklin D. Roosevelt",
       "context": "32nd US President, 1882-1945",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_20",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/3/30/FDR_1944_Color_Portrait.jpg",
       "themes": [
         "doubt",
         "future"
@@ -269,7 +269,7 @@
       "quote": "Creativity is intelligence having fun.",
       "author": "Albert Einstein",
       "context": "Physicist, 1879-1955",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_21",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg",
       "themes": [
         "creativity",
         "intelligence"
@@ -282,7 +282,7 @@
       "quote": "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
       "author": "Ralph Waldo Emerson",
       "context": "Philosopher, 1803-1882",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_22",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Ralph_Waldo_Emerson_ca1857_retouched.jpg",
       "themes": [
         "inner_strength",
         "perspective"
@@ -295,7 +295,7 @@
       "quote": "The best time to plant a tree was 20 years ago. The second best time is now.",
       "author": "Chinese Proverb",
       "context": "Ancient wisdom",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_23",
+      "imageUri": "https://via.placeholder.com/440x440/f59e0b/ffffff?text=Wisdom",
       "themes": [
         "action",
         "timing"
@@ -308,7 +308,7 @@
       "quote": "Your time is limited, don't waste it living someone else's life.",
       "author": "Steve Jobs",
       "context": "Apple co-founder",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_24",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
       "themes": [
         "authenticity",
         "time"
@@ -321,7 +321,7 @@
       "quote": "The only impossible journey is the one you never begin.",
       "author": "Tony Robbins",
       "context": "Life coach",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_25",
+      "imageUri": "https://via.placeholder.com/440x440/ef4444/ffffff?text=Tony+Robbins",
       "themes": [
         "beginning",
         "possibility"
@@ -334,7 +334,7 @@
       "quote": "In this life we cannot do great things. We can only do small things with great love.",
       "author": "Mother Teresa",
       "context": "Humanitarian, 1910-1997",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_26",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Mother_Teresa_1.jpg",
       "themes": [
         "love",
         "service"
@@ -347,7 +347,7 @@
       "quote": "Only a life lived for others is a life worthwhile.",
       "author": "Albert Einstein",
       "context": "Physicist",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_27",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg",
       "themes": [
         "service",
         "meaning"
@@ -360,7 +360,7 @@
       "quote": "The purpose of our lives is to be happy.",
       "author": "Dalai Lama",
       "context": "Spiritual leader",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_28",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/5/55/Dalailama1_20121014_4639.jpg",
       "themes": [
         "happiness",
         "purpose"
@@ -373,7 +373,7 @@
       "quote": "Life is what happens when you're busy making other plans.",
       "author": "John Lennon",
       "context": "Musician, 1940-1980",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_29",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/5/51/John_Lennon_1969_%28cropped%29.jpg",
       "themes": [
         "present",
         "life"
@@ -386,7 +386,7 @@
       "quote": "Get busy living or get busy dying.",
       "author": "Stephen King",
       "context": "Author",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_30",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Stephen_King%2C_Comicon.jpg",
       "themes": [
         "action",
         "choice"
@@ -399,7 +399,7 @@
       "quote": "You only live once, but if you do it right, once is enough.",
       "author": "Mae West",
       "context": "Actress, 1893-1980",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_31",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/2/29/Mae_West_LAT.jpg",
       "themes": [
         "life",
         "quality"
@@ -412,7 +412,7 @@
       "quote": "Many of life's failures are people who did not realize how close they were to success.",
       "author": "Thomas Edison",
       "context": "Inventor, 1847-1931",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_32",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Thomas_Edison2.jpg",
       "themes": [
         "perseverance",
         "success"
@@ -425,7 +425,7 @@
       "quote": "The way to get started is to quit talking and begin doing.",
       "author": "Walt Disney",
       "context": "Entrepreneur",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_33",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/df/Walt_Disney_1946.JPG",
       "themes": [
         "action",
         "initiative"
@@ -438,7 +438,7 @@
       "quote": "Don't be afraid to give up the good to go for the great.",
       "author": "John D. Rockefeller",
       "context": "Industrialist, 1839-1937",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_34",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/6/6a/John_D._Rockefeller_1885.jpg",
       "themes": [
         "ambition",
         "excellence"
@@ -451,7 +451,7 @@
       "quote": "I find that the harder I work, the more luck I seem to have.",
       "author": "Thomas Jefferson",
       "context": "3rd US President, 1743-1826",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_35",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg",
       "themes": [
         "work",
         "luck"
@@ -464,7 +464,7 @@
       "quote": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
       "author": "Winston Churchill",
       "context": "British PM, 1874-1965",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_36",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Sir_Winston_Churchill_-_19086236948.jpg",
       "themes": [
         "courage",
         "perseverance"
@@ -477,7 +477,7 @@
       "quote": "Success usually comes to those who are too busy to be looking for it.",
       "author": "Henry David Thoreau",
       "context": "Philosopher, 1817-1862",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_37",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Henry_David_Thoreau_-_Dunshee_ambrotpe_1861.jpg",
       "themes": [
         "success",
         "focus"
@@ -490,7 +490,7 @@
       "quote": "The road to success and the road to failure are almost exactly the same.",
       "author": "Colin R. Davis",
       "context": "Conductor, 1927-2013",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_38",
+      "imageUri": "https://via.placeholder.com/440x440/10b981/ffffff?text=Colin+Davis",
       "themes": [
         "success",
         "failure"
@@ -503,7 +503,7 @@
       "quote": "Success is walking from failure to failure with no loss of enthusiasm.",
       "author": "Winston Churchill",
       "context": "British PM",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_39",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Sir_Winston_Churchill_-_19086236948.jpg",
       "themes": [
         "enthusiasm",
         "resilience"
@@ -514,9 +514,9 @@
     },
     {
       "quote": "I never dreamed about success, I worked for it.",
-      "author": "Est\u00e9e Lauder",
+      "author": "Estée Lauder",
       "context": "Businesswoman, 1908-2004",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_40",
+      "imageUri": "https://via.placeholder.com/440x440/ec4899/ffffff?text=Estee+Lauder",
       "themes": [
         "work",
         "success"
@@ -529,7 +529,7 @@
       "quote": "Success is not how high you have climbed, but how you make a positive difference.",
       "author": "Roy T. Bennett",
       "context": "Author",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_41",
+      "imageUri": "https://via.placeholder.com/440x440/3b82f6/ffffff?text=Roy+Bennett",
       "themes": [
         "impact",
         "success"
@@ -542,7 +542,7 @@
       "quote": "Don't be distracted by criticism. Remember, the only taste of success some people get is to take a bite out of you.",
       "author": "Zig Ziglar",
       "context": "Motivational speaker, 1926-2012",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_42",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Zig+Ziglar",
       "themes": [
         "criticism",
         "success"
@@ -555,7 +555,7 @@
       "quote": "The secret of success is to do the common thing uncommonly well.",
       "author": "John D. Rockefeller Jr.",
       "context": "Philanthropist, 1874-1960",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_43",
+      "imageUri": "https://via.placeholder.com/440x440/f59e0b/ffffff?text=Rockefeller+Jr",
       "themes": [
         "excellence",
         "success"
@@ -568,7 +568,7 @@
       "quote": "I find that when you have a real interest in life and a curious life, that sleep is not the most important thing.",
       "author": "Martha Stewart",
       "context": "Businesswoman",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_44",
+      "imageUri": "https://via.placeholder.com/440x440/ec4899/ffffff?text=Martha+Stewart",
       "themes": [
         "passion",
         "dedication"
@@ -581,7 +581,7 @@
       "quote": "It's not what you look at that matters, it's what you see.",
       "author": "Henry David Thoreau",
       "context": "Philosopher",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_45",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Henry_David_Thoreau_-_Dunshee_ambrotpe_1861.jpg",
       "themes": [
         "perspective",
         "vision"
@@ -594,7 +594,7 @@
       "quote": "The only person you are destined to become is the person you decide to be.",
       "author": "Ralph Waldo Emerson",
       "context": "Philosopher",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_46",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Ralph_Waldo_Emerson_ca1857_retouched.jpg",
       "themes": [
         "choice",
         "destiny"
@@ -607,7 +607,7 @@
       "quote": "Go confidently in the direction of your dreams! Live the life you've imagined.",
       "author": "Henry David Thoreau",
       "context": "Philosopher",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_47",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Henry_David_Thoreau_-_Dunshee_ambrotpe_1861.jpg",
       "themes": [
         "dreams",
         "confidence"
@@ -620,7 +620,7 @@
       "quote": "When I stand before God at the end of my life, I would hope that I would not have a single bit of talent left.",
       "author": "Erma Bombeck",
       "context": "Humorist, 1927-1996",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_48",
+      "imageUri": "https://via.placeholder.com/440x440/10b981/ffffff?text=Erma+Bombeck",
       "themes": [
         "talent",
         "purpose"
@@ -633,7 +633,7 @@
       "quote": "Too many of us are not living our dreams because we are living our fears.",
       "author": "Les Brown",
       "context": "Motivational speaker",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_49",
+      "imageUri": "https://via.placeholder.com/440x440/ef4444/ffffff?text=Les+Brown",
       "themes": [
         "fear",
         "dreams"
@@ -646,7 +646,7 @@
       "quote": "Challenges are what make life interesting and overcoming them is what makes life meaningful.",
       "author": "Joshua J. Marine",
       "context": "Author",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_50",
+      "imageUri": "https://via.placeholder.com/440x440/6366f1/ffffff?text=Joshua+Marine",
       "themes": [
         "challenges",
         "meaning"
@@ -659,7 +659,7 @@
       "quote": "If you want to lift yourself up, lift up someone else.",
       "author": "Booker T. Washington",
       "context": "Educator, 1856-1915",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_51",
+      "imageUri": "https://commons.wikimedia.org/wiki/File:Booker_T._Washington_by_Francis_Benjamin_Johnston,_c._1895.jpg",
       "themes": [
         "service",
         "growth"
@@ -672,7 +672,7 @@
       "quote": "I have learned over the years that when one's mind is made up, this diminishes fear.",
       "author": "Rosa Parks",
       "context": "Civil rights activist, 1913-2005",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_52",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Rosaparks.jpg",
       "themes": [
         "determination",
         "fear"
@@ -685,7 +685,7 @@
       "quote": "Certain things catch your eye, but pursue only those that capture the heart.",
       "author": "Ancient Indian Proverb",
       "context": "Traditional wisdom",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_53",
+      "imageUri": "https://via.placeholder.com/440x440/f59e0b/ffffff?text=Wisdom",
       "themes": [
         "passion",
         "focus"
@@ -698,7 +698,7 @@
       "quote": "Everything you've ever wanted is on the other side of fear.",
       "author": "George Addair",
       "context": "Author",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_54",
+      "imageUri": "https://via.placeholder.com/440x440/3b82f6/ffffff?text=George+Addair",
       "themes": [
         "fear",
         "desire"
@@ -711,7 +711,7 @@
       "quote": "We can easily forgive a child who is afraid of the dark; the real tragedy is men who are afraid of the light.",
       "author": "Plato",
       "context": "Greek philosopher, 428-348 BCE",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_55",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Plato-raphael.jpg",
       "themes": [
         "courage",
         "truth"
@@ -724,7 +724,7 @@
       "quote": "Teach thy tongue to say, 'I do not know,' and thou shalt progress.",
       "author": "Maimonides",
       "context": "Jewish philosopher, 1138-1204",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_56",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Maimonides",
       "themes": [
         "humility",
         "learning"
@@ -737,7 +737,7 @@
       "quote": "Start where you are. Use what you have. Do what you can.",
       "author": "Arthur Ashe",
       "context": "Tennis player, 1943-1993",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_57",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Arthur_Ashe_1960s.jpg",
       "themes": [
         "action",
         "resourcefulness"
@@ -750,7 +750,7 @@
       "quote": "When I was 5 years old, my mother always told me that happiness was the key to life.",
       "author": "John Lennon",
       "context": "Musician",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_58",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/5/51/John_Lennon_1969_%28cropped%29.jpg",
       "themes": [
         "happiness",
         "wisdom"
@@ -763,7 +763,7 @@
       "quote": "Fall seven times and stand up eight.",
       "author": "Japanese Proverb",
       "context": "Traditional wisdom",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_59",
+      "imageUri": "https://via.placeholder.com/440x440/ec4899/ffffff?text=Wisdom",
       "themes": [
         "resilience",
         "perseverance"
@@ -776,7 +776,7 @@
       "quote": "When one door of happiness closes, another opens.",
       "author": "Helen Keller",
       "context": "Author",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_60",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Helen_Keller_circa_1920_-_restored.jpg",
       "themes": [
         "opportunity",
         "perspective"
@@ -789,7 +789,7 @@
       "quote": "Everything has beauty, but not everyone can see.",
       "author": "Confucius",
       "context": "Chinese philosopher, 551-479 BCE",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_61",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/18/Konfuzius-1770.jpg",
       "themes": [
         "beauty",
         "perception"
@@ -802,7 +802,7 @@
       "quote": "How wonderful it is that nobody need wait a single moment before starting to improve the world.",
       "author": "Anne Frank",
       "context": "Diarist, 1929-1945",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_62",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Anne_Frank_in_1940%2C_while_at_6._Montessorischool%2C_Niersstraat_41-43%2C_Amsterdam_%28cropped%29.jpg",
       "themes": [
         "action",
         "impact"
@@ -815,7 +815,7 @@
       "quote": "When I let go of what I am, I become what I might be.",
       "author": "Lao Tzu",
       "context": "Chinese philosopher, 6th century BCE",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_63",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/12/Laozi.jpg",
       "themes": [
         "change",
         "potential"
@@ -828,7 +828,7 @@
       "quote": "Life is 10% what happens to me and 90% of how I react to it.",
       "author": "Charles Swindoll",
       "context": "Pastor and author",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_64",
+      "imageUri": "https://via.placeholder.com/440x440/10b981/ffffff?text=Charles+Swindoll",
       "themes": [
         "attitude",
         "response"
@@ -841,7 +841,7 @@
       "quote": "An unexamined life is not worth living.",
       "author": "Socrates",
       "context": "Greek philosopher, 470-399 BCE",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_65",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Socrates_Louvre.jpg",
       "themes": [
         "reflection",
         "wisdom"
@@ -854,7 +854,7 @@
       "quote": "Your time is limited, so don't waste it living someone else's life.",
       "author": "Steve Jobs",
       "context": "Entrepreneur",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_66",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
       "themes": [
         "authenticity",
         "time"
@@ -867,7 +867,7 @@
       "quote": "Winning isn't everything, but wanting to win is.",
       "author": "Vince Lombardi",
       "context": "NFL coach",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_67",
+      "imageUri": "https://via.placeholder.com/440x440/ec4899/ffffff?text=Vince+Lombardi",
       "themes": [
         "ambition",
         "desire"
@@ -880,7 +880,7 @@
       "quote": "I am not a product of my circumstances. I am a product of my decisions.",
       "author": "Stephen Covey",
       "context": "Author, 1932-2012",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_68",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/7/78/Stephen_Covey_2010.jpg",
       "themes": [
         "choice",
         "responsibility"
@@ -893,7 +893,7 @@
       "quote": "Every child is an artist. The problem is how to remain an artist once he grows up.",
       "author": "Pablo Picasso",
       "context": "Artist, 1881-1973",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_69",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
       "themes": [
         "creativity",
         "childhood"
@@ -906,7 +906,7 @@
       "quote": "You can never cross the ocean until you have the courage to lose sight of the shore.",
       "author": "Christopher Columbus",
       "context": "Explorer, 1451-1506",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_70",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Sebastiano_del_Piombo_-_Portrait_of_a_Man%2C_Said_to_be_Christopher_Columbus.jpg",
       "themes": [
         "courage",
         "risk"
@@ -919,7 +919,7 @@
       "quote": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
       "author": "Maya Angelou",
       "context": "Poet",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_71",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg",
       "themes": [
         "impact",
         "emotion"
@@ -932,7 +932,7 @@
       "quote": "Either you run the day, or the day runs you.",
       "author": "Jim Rohn",
       "context": "Entrepreneur, 1930-2009",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_72",
+      "imageUri": "https://via.placeholder.com/440x440/ef4444/ffffff?text=Jim+Rohn",
       "themes": [
         "control",
         "discipline"
@@ -945,7 +945,7 @@
       "quote": "Whether you think you can or you think you can't, you're right.",
       "author": "Henry Ford",
       "context": "Industrialist",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_73",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/18/Henry_ford_1919.jpg",
       "themes": [
         "mindset",
         "belief"
@@ -958,7 +958,7 @@
       "quote": "The two most important days in your life are the day you are born and the day you find out why.",
       "author": "Mark Twain",
       "context": "Author, 1835-1910",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_74",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mark_Twain_by_AF_Bradley.jpg",
       "themes": [
         "purpose",
         "meaning"
@@ -971,7 +971,7 @@
       "quote": "Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.",
       "author": "Johann Wolfgang von Goethe",
       "context": "Writer",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_75",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Goethe_%28Stieler_1828%29.jpg",
       "themes": [
         "boldness",
         "action"
@@ -984,7 +984,7 @@
       "quote": "The best revenge is massive success.",
       "author": "Frank Sinatra",
       "context": "Singer, 1915-1998",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_76",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/a/af/Frank_Sinatra_%2757.jpg",
       "themes": [
         "success",
         "motivation"
@@ -997,7 +997,7 @@
       "quote": "People often say that motivation doesn't last. Well, neither does bathing. That's why we recommend it daily.",
       "author": "Zig Ziglar",
       "context": "Motivational speaker",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_77",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Zig+Ziglar",
       "themes": [
         "motivation",
         "consistency"
@@ -1008,9 +1008,9 @@
     },
     {
       "quote": "Life shrinks or expands in proportion to one's courage.",
-      "author": "Ana\u00efs Nin",
+      "author": "Anaïs Nin",
       "context": "Author, 1903-1977",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_78",
+      "imageUri": "https://via.placeholder.com/440x440/6366f1/ffffff?text=Anais+Nin",
       "themes": [
         "courage",
         "life"
@@ -1023,7 +1023,7 @@
       "quote": "If you hear a voice within you say 'you cannot paint,' then by all means paint and that voice will be silenced.",
       "author": "Vincent Van Gogh",
       "context": "Artist, 1853-1890",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_79",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/3/38/VanGogh_1887_Selbstbildnis.jpg",
       "themes": [
         "self_doubt",
         "action"
@@ -1036,7 +1036,7 @@
       "quote": "There is only one way to avoid criticism: do nothing, say nothing, and be nothing.",
       "author": "Aristotle",
       "context": "Greek philosopher",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_80",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Aristotle_Altemps_Inv8575.jpg",
       "themes": [
         "criticism",
         "action"
@@ -1049,7 +1049,7 @@
       "quote": "Ask and it will be given to you; search, and you will find; knock and the door will be opened for you.",
       "author": "Jesus Christ",
       "context": "Religious figure, c. 4 BCE - c. 30 CE",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_81",
+      "imageUri": "https://via.placeholder.com/440x440/f59e0b/ffffff?text=Wisdom",
       "themes": [
         "faith",
         "persistence"
@@ -1062,7 +1062,7 @@
       "quote": "The only person you are destined to become is the person you decide to be.",
       "author": "Ralph Waldo Emerson",
       "context": "Philosopher",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_82",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Ralph_Waldo_Emerson_ca1857_retouched.jpg",
       "themes": [
         "destiny",
         "choice"
@@ -1075,7 +1075,7 @@
       "quote": "Build your own dreams, or someone else will hire you to build theirs.",
       "author": "Farrah Gray",
       "context": "Businessman",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_83",
+      "imageUri": "https://via.placeholder.com/440x440/3b82f6/ffffff?text=Farrah+Gray",
       "themes": [
         "entrepreneurship",
         "dreams"
@@ -1088,7 +1088,7 @@
       "quote": "Remember that not getting what you want is sometimes a wonderful stroke of luck.",
       "author": "Dalai Lama",
       "context": "Spiritual leader",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_84",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/5/55/Dalailama1_20121014_4639.jpg",
       "themes": [
         "perspective",
         "luck"
@@ -1101,7 +1101,7 @@
       "quote": "You can't use up creativity. The more you use, the more you have.",
       "author": "Maya Angelou",
       "context": "Poet",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_85",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg",
       "themes": [
         "creativity",
         "abundance"
@@ -1114,7 +1114,7 @@
       "quote": "Dream big and dare to fail.",
       "author": "Norman Vaughan",
       "context": "Explorer, 1905-2005",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_86",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Norman+Vaughan",
       "themes": [
         "dreams",
         "courage"
@@ -1127,7 +1127,7 @@
       "quote": "Our lives begin to end the day we become silent about things that matter.",
       "author": "Martin Luther King Jr.",
       "context": "Civil rights leader",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_87",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King%2C_Jr..jpg",
       "themes": [
         "voice",
         "justice"
@@ -1140,7 +1140,7 @@
       "quote": "Do what you can, where you are, with what you have.",
       "author": "Teddy Roosevelt",
       "context": "US President",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_88",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/19/President_Roosevelt_-_Pach_Bros.jpg",
       "themes": [
         "action",
         "resourcefulness"
@@ -1153,7 +1153,7 @@
       "quote": "If you do what you've always done, you'll get what you've always gotten.",
       "author": "Tony Robbins",
       "context": "Life coach",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_89",
+      "imageUri": "https://via.placeholder.com/440x440/ef4444/ffffff?text=Tony+Robbins",
       "themes": [
         "change",
         "growth"
@@ -1166,7 +1166,7 @@
       "quote": "Dreaming, after all, is a form of planning.",
       "author": "Gloria Steinem",
       "context": "Feminist activist",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_90",
+      "imageUri": "https://via.placeholder.com/440x440/ec4899/ffffff?text=Gloria+Steinem",
       "themes": [
         "dreams",
         "planning"
@@ -1179,7 +1179,7 @@
       "quote": "It's your place in the world; it's your life. Go on and do all you can with it, and make it the life you want to live.",
       "author": "Mae Jemison",
       "context": "Astronaut",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_91",
+      "imageUri": "https://via.placeholder.com/440x440/10b981/ffffff?text=Mae+Jemison",
       "themes": [
         "life",
         "potential"
@@ -1192,7 +1192,7 @@
       "quote": "You may be disappointed if you fail, but you are doomed if you don't try.",
       "author": "Beverly Sills",
       "context": "Opera singer, 1929-2007",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_92",
+      "imageUri": "https://via.placeholder.com/440x440/ef4444/ffffff?text=Beverly+Sills",
       "themes": [
         "trying",
         "failure"
@@ -1205,7 +1205,7 @@
       "quote": "Remember no one can make you feel inferior without your consent.",
       "author": "Eleanor Roosevelt",
       "context": "First Lady",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_93",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/7/73/Eleanor_Roosevelt_portrait_1933.jpg",
       "themes": [
         "self_worth",
         "confidence"
@@ -1218,7 +1218,7 @@
       "quote": "Life is what we make it, always has been, always will be.",
       "author": "Grandma Moses",
       "context": "Artist, 1860-1961",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_94",
+      "imageUri": "https://via.placeholder.com/440x440/6366f1/ffffff?text=Grandma+Moses",
       "themes": [
         "life",
         "responsibility"
@@ -1231,7 +1231,7 @@
       "quote": "The question isn't who is going to let me; it's who is going to stop me.",
       "author": "Ayn Rand",
       "context": "Author, 1905-1982",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_95",
+      "imageUri": "https://via.placeholder.com/440x440/f59e0b/ffffff?text=Ayn+Rand",
       "themes": [
         "determination",
         "independence"
@@ -1244,7 +1244,7 @@
       "quote": "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.",
       "author": "Henry Ford",
       "context": "Industrialist",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_96",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/1/18/Henry_ford_1919.jpg",
       "themes": [
         "adversity",
         "success"
@@ -1257,7 +1257,7 @@
       "quote": "It's not the years in your life that count. It's the life in your years.",
       "author": "Abraham Lincoln",
       "context": "16th US President, 1809-1865",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_97",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg",
       "themes": [
         "quality",
         "life"
@@ -1270,7 +1270,7 @@
       "quote": "Change your thoughts and you change your world.",
       "author": "Norman Vincent Peale",
       "context": "Minister, 1898-1993",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_98",
+      "imageUri": "https://via.placeholder.com/440x440/3b82f6/ffffff?text=Norman+Peale",
       "themes": [
         "mindset",
         "change"
@@ -1283,7 +1283,7 @@
       "quote": "Either write something worth reading or do something worth writing.",
       "author": "Benjamin Franklin",
       "context": "Founding Father, 1706-1790",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_99",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/2/25/Benjamin_Franklin_by_Joseph_Duplessis_1778.jpg",
       "themes": [
         "action",
         "legacy"
@@ -1296,7 +1296,7 @@
       "quote": "Nothing is impossible, the word itself says, 'I'm possible!'",
       "author": "Audrey Hepburn",
       "context": "Actress, 1929-1993",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_100",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Audrey_Hepburn_1956.jpg",
       "themes": [
         "possibility",
         "optimism"
@@ -1309,7 +1309,7 @@
       "quote": "The only way to do great work is to love what you do.",
       "author": "Steve Jobs",
       "context": "Entrepreneur",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_101",
+      "imageUri": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
       "themes": [
         "passion",
         "work"
@@ -1322,7 +1322,7 @@
       "quote": "If you can dream it, you can achieve it.",
       "author": "Zig Ziglar",
       "context": "Motivational speaker",
-      "imageUri": "android.resource://com.example.historymotivationcoach/drawable/motivation_102",
+      "imageUri": "https://via.placeholder.com/440x440/8b5cf6/ffffff?text=Zig+Ziglar",
       "themes": [
         "dreams",
         "achievement"

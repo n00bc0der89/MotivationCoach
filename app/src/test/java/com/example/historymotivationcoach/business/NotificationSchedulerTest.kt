@@ -31,7 +31,7 @@ class NotificationSchedulerTest {
     
     private lateinit var context: Context
     private lateinit var preferencesRepository: PreferencesRepository
-    private lateinit var notificationScheduler: NotificationScheduler
+    private lateinit var notificationScheduler: NotificationSchedulerImpl
     
     @Before
     fun setup() {
@@ -42,15 +42,15 @@ class NotificationSchedulerTest {
         val workManager: WorkManager = mock()
         whenever(context.applicationContext).thenReturn(context)
         
-        notificationScheduler = NotificationScheduler(context, preferencesRepository)
+        notificationScheduler = NotificationSchedulerImpl(context, preferencesRepository)
     }
     
     @Test
-    fun `computeNotificationTimes distributes evenly in TIME_WINDOW mode`() = runTest {
-        // Given: TIME_WINDOW mode with 3 notifications from 9 AM to 9 PM
+    fun `computeNotificationTimes distributes evenly in ALL_DAYS mode`() = runTest {
+        // Given: ALL_DAYS mode with 3 notifications from 9 AM to 9 PM
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = true
@@ -82,13 +82,13 @@ class NotificationSchedulerTest {
     }
     
     @Test
-    fun `computeNotificationTimes uses exact times in FIXED_TIMES mode`() = runTest {
-        // Given: FIXED_TIMES mode with specific times
-        val fixedTimes = listOf("08:00", "12:00", "18:00", "22:00")
+    fun `computeNotificationTimes distributes evenly across time window`() = runTest {
+        // Given: ALL_DAYS mode with evenly distributed notifications
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.FIXED_TIMES,
-            fixedTimes = fixedTimes,
+            scheduleMode = ScheduleMode.ALL_DAYS,
+            startTime = "08:00",
+            endTime = "22:00",
             enabled = true
         )
         
@@ -97,34 +97,35 @@ class NotificationSchedulerTest {
         // When: computing notification times
         val times = computeNotificationTimesPublic(prefs)
         
-        // Then: should use first 3 times from fixedTimes (or fewer if in the past)
+        // Then: should have at most 3 notification times
         assertTrue(times.size <= 3, "Should have at most 3 notification times")
         
-        // Verify times match the fixed times (for future times)
-        val today = Calendar.getInstance()
-        times.forEach { timestamp ->
-            val cal = Calendar.getInstance().apply { timeInMillis = timestamp }
-            val hour = cal.get(Calendar.HOUR_OF_DAY)
-            val minute = cal.get(Calendar.MINUTE)
-            val timeStr = "%02d:%02d".format(hour, minute)
+        // Verify even distribution if we have multiple times
+        if (times.size >= 2) {
+            val intervals = mutableListOf<Long>()
+            for (i in 0 until times.size - 1) {
+                intervals.add(times[i + 1] - times[i])
+            }
             
-            assertTrue(
-                fixedTimes.take(3).contains(timeStr),
-                "Time $timeStr should be in the first 3 fixed times"
-            )
+            // All intervals should be approximately equal
+            val expectedInterval = intervals.first()
+            intervals.forEach { interval ->
+                val difference = kotlin.math.abs(interval - expectedInterval)
+                assertTrue(difference < 3600000, "Intervals should be roughly equal")
+            }
         }
     }
     
     @Test
     fun `computeNotificationTimes filters out past times`() = runTest {
-        // Given: TIME_WINDOW mode with times that may be in the past
+        // Given: ALL_DAYS mode with times that may be in the past
         val now = Calendar.getInstance()
         val currentHour = now.get(Calendar.HOUR_OF_DAY)
         
         // Set start time to early morning (likely in the past)
         val prefs = UserPreferences(
             notificationsPerDay = 5,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "00:00",
             endTime = "23:59",
             enabled = true
@@ -147,7 +148,7 @@ class NotificationSchedulerTest {
         // Given: Only 1 notification per day
         val prefs = UserPreferences(
             notificationsPerDay = 1,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "12:00",
             endTime = "13:00",
             enabled = true
@@ -167,7 +168,7 @@ class NotificationSchedulerTest {
         // Given: Maximum 10 notifications per day
         val prefs = UserPreferences(
             notificationsPerDay = 10,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "08:00",
             endTime = "22:00",
             enabled = true
@@ -187,7 +188,7 @@ class NotificationSchedulerTest {
         // Given: Time window crossing midnight (edge case)
         val prefs = UserPreferences(
             notificationsPerDay = 2,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "23:00",
             endTime = "23:59",
             enabled = true
@@ -218,7 +219,7 @@ class NotificationSchedulerTest {
         // Given: Start and end time are the same (edge case)
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "12:00",
             endTime = "12:00",
             enabled = true
@@ -242,13 +243,13 @@ class NotificationSchedulerTest {
     }
     
     @Test
-    fun `computeNotificationTimes respects notificationsPerDay limit in FIXED_TIMES mode`() = runTest {
-        // Given: More fixed times than notificationsPerDay
-        val fixedTimes = listOf("06:00", "09:00", "12:00", "15:00", "18:00", "21:00")
+    fun `computeNotificationTimes respects notificationsPerDay limit`() = runTest {
+        // Given: Multiple notifications per day
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.FIXED_TIMES,
-            fixedTimes = fixedTimes,
+            scheduleMode = ScheduleMode.ALL_DAYS,
+            startTime = "06:00",
+            endTime = "21:00",
             enabled = true
         )
         
@@ -257,7 +258,7 @@ class NotificationSchedulerTest {
         // When: computing notification times
         val times = computeNotificationTimesPublic(prefs)
         
-        // Then: should only use first 3 times (or fewer if in the past)
+        // Then: should only have at most 3 times
         assertTrue(times.size <= 3, "Should respect notificationsPerDay limit")
     }
     
@@ -339,7 +340,7 @@ class NotificationSchedulerTest {
     
     private fun computeNotificationTimesPublic(prefs: UserPreferences): List<Long> {
         // Use reflection to access private method
-        val method = NotificationScheduler::class.java.getDeclaredMethod(
+        val method = NotificationSchedulerImpl::class.java.getDeclaredMethod(
             "computeNotificationTimes",
             UserPreferences::class.java
         )
@@ -350,7 +351,7 @@ class NotificationSchedulerTest {
     
     private fun parseTimePublic(timeStr: String, baseDate: Calendar): Long {
         // Use reflection to access private method
-        val method = NotificationScheduler::class.java.getDeclaredMethod(
+        val method = NotificationSchedulerImpl::class.java.getDeclaredMethod(
             "parseTime",
             String::class.java,
             Calendar::class.java
@@ -361,7 +362,7 @@ class NotificationSchedulerTest {
     
     private fun getCurrentDateKeyPublic(): String {
         // Use reflection to access private method
-        val method = NotificationScheduler::class.java.getDeclaredMethod("getCurrentDateKey")
+        val method = NotificationSchedulerImpl::class.java.getDeclaredMethod("getCurrentDateKey")
         method.isAccessible = true
         return method.invoke(notificationScheduler) as String
     }

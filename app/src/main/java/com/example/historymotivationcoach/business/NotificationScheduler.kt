@@ -9,13 +9,74 @@ import com.example.historymotivationcoach.data.entity.ScheduleMode
 import com.example.historymotivationcoach.data.entity.UserPreferences
 import com.example.historymotivationcoach.data.repository.PreferencesRepository
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 /**
- * Business logic component for scheduling notifications.
+ * Interface for scheduling notifications.
+ * 
+ * Handles the computation of notification times and scheduling of WorkManager tasks
+ * to deliver motivational content at the configured times.
+ * 
+ * Requirements:
+ * - 3.2: Manual notification triggering
+ * - 4.7: Schedule notifications respecting schedule mode
+ * - 4.8: Reschedule on preference changes
+ * - 5.8: Reschedule on time window changes
+ * - 7.1: WorkManager integration
+ * - 7.3: OneTimeWorkRequests with exact timing
+ * - 7.4: Auto-schedule next notification after delivery
+ */
+interface NotificationScheduler {
+    /**
+     * Schedules the next notification based on current preferences.
+     * Applies schedule mode and time window constraints.
+     * 
+     * Requirements: 4.7, 7.1, 7.3
+     */
+    suspend fun scheduleNextNotification()
+    
+    /**
+     * Reschedules all pending notifications.
+     * Called when preferences change.
+     * 
+     * Requirements: 4.8, 5.8
+     */
+    suspend fun rescheduleAllNotifications()
+    
+    /**
+     * Cancels all pending notifications.
+     * 
+     * Requirements: 7.7
+     */
+    suspend fun cancelAllNotifications()
+    
+    /**
+     * Triggers a manual notification immediately.
+     * Returns the delivered motivation ID or null if failed.
+     * 
+     * Requirements: 3.2
+     */
+    suspend fun triggerManualNotification(): Long?
+    
+    /**
+     * Calculates the next valid notification time
+     * based on schedule mode and time window.
+     * 
+     * Requirements: 6.1, 6.2, 6.3, 7.2
+     */
+    fun calculateNextNotificationTime(
+        preferences: UserPreferences,
+        fromTime: LocalDateTime = LocalDateTime.now()
+    ): LocalDateTime?
+}
+
+/**
+ * Implementation of NotificationScheduler using WorkManager.
  * 
  * Handles the computation of notification times and scheduling of WorkManager tasks
  * to deliver motivational content at the configured times.
@@ -23,16 +84,15 @@ import java.util.concurrent.TimeUnit
  * Requirements:
  * - 1.3: Reschedule notifications when frequency changes
  * - 2.2: Even distribution in TIME_WINDOW mode
- * - 2.3: Exact times in FIXED_TIMES mode
  * - 2.4: Cancel and reschedule when mode changes
  * - 4.4: Stop scheduling when content is exhausted
  * - 15.2: Compute delivery times at midnight each day
  * - 15.3: Use deterministic work names to prevent duplicates
  */
-class NotificationScheduler(
+class NotificationSchedulerImpl(
     private val context: Context,
     private val preferencesRepository: PreferencesRepository
-) {
+) : NotificationScheduler {
     
     /**
      * Schedule notifications based on current user preferences.
@@ -91,17 +151,8 @@ class NotificationScheduler(
     /**
      * Compute notification times based on user preferences.
      * 
-     * Supports two scheduling modes:
-     * 
-     * TIME_WINDOW mode:
-     * - Distributes notifications evenly between start and end times
-     * - Calculates equal intervals: (end - start) / notificationsPerDay
-     * - Example: 9 AM to 9 PM with 3 notifications = 9 AM, 3 PM, 9 PM
-     * 
-     * FIXED_TIMES mode:
-     * - Uses exact times specified by the user
-     * - Takes up to notificationsPerDay times from the fixedTimes list
-     * - Example: User specifies [08:00, 12:00, 18:00, 22:00] with 3 per day = 08:00, 12:00, 18:00
+     * For v2, this uses the ALL_DAYS schedule mode with time window distribution.
+     * Advanced schedule mode logic will be implemented in task 2.
      * 
      * @param prefs User preferences containing schedule configuration
      * @return List of Unix timestamps (milliseconds) for notification times, filtered to future times only
@@ -110,26 +161,17 @@ class NotificationScheduler(
         val today = Calendar.getInstance()
         val times = mutableListOf<Long>()
         
-        when (prefs.scheduleMode) {
-            ScheduleMode.TIME_WINDOW -> {
-                // Parse start and end times for today
-                val start = parseTime(prefs.startTime, today)
-                val end = parseTime(prefs.endTime, today)
-                
-                // Calculate interval for even distribution
-                val interval = (end - start) / prefs.notificationsPerDay
-                
-                // Generate evenly spaced times
-                for (i in 0 until prefs.notificationsPerDay) {
-                    times.add(start + (interval * i))
-                }
-            }
-            ScheduleMode.FIXED_TIMES -> {
-                // Use user-specified fixed times, up to notificationsPerDay limit
-                prefs.fixedTimes.take(prefs.notificationsPerDay).forEach { timeStr ->
-                    times.add(parseTime(timeStr, today))
-                }
-            }
+        // For now, use time window distribution (v2 default behavior)
+        // Parse start and end times for today
+        val start = parseTime(prefs.startTime, today)
+        val end = parseTime(prefs.endTime, today)
+        
+        // Calculate interval for even distribution
+        val interval = (end - start) / prefs.notificationsPerDay
+        
+        // Generate evenly spaced times
+        for (i in 0 until prefs.notificationsPerDay) {
+            times.add(start + (interval * i))
         }
         
         // Filter to only include times in the future
@@ -212,8 +254,156 @@ class NotificationScheduler(
      * - Schedule preferences change (before rescheduling)
      * - User explicitly cancels notifications
      */
-    fun cancelAllNotifications() {
+    override suspend fun cancelAllNotifications() {
         WorkManager.getInstance(context).cancelAllWorkByTag(NOTIFICATION_TAG)
+    }
+    
+    /**
+     * Schedules the next notification based on current preferences.
+     * Applies schedule mode and time window constraints.
+     * 
+     * Requirements: 4.7, 7.1, 7.3
+     */
+    override suspend fun scheduleNextNotification() {
+        val prefs = preferencesRepository.getPreferences()
+        
+        // If notifications are disabled, cancel all work and return
+        if (!prefs.enabled) {
+            cancelAllNotifications()
+            return
+        }
+        
+        // Calculate next notification time using new schedule logic
+        val nextTime = calculateNextNotificationTime(prefs)
+        
+        if (nextTime != null) {
+            // Convert LocalDateTime to milliseconds
+            val nextTimeMillis = nextTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+            val delay = nextTimeMillis - System.currentTimeMillis()
+            
+            // Only schedule if the time is in the future
+            if (delay > 0) {
+                val workRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+                    .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                    .addTag(NOTIFICATION_TAG)
+                    .setInputData(workDataOf(NotificationWorker.KEY_NOTIFICATION_ID to System.currentTimeMillis().toInt()))
+                    .build()
+                
+                WorkManager.getInstance(context)
+                    .enqueueUniqueWork(
+                        "next_notification",
+                        ExistingWorkPolicy.REPLACE,
+                        workRequest
+                    )
+            }
+        }
+    }
+    
+    /**
+     * Reschedules all pending notifications.
+     * Called when preferences change.
+     * 
+     * Requirements: 4.8, 5.8
+     */
+    override suspend fun rescheduleAllNotifications() {
+        // Cancel all existing notifications
+        cancelAllNotifications()
+        
+        // Schedule the next notification with new preferences
+        scheduleNextNotification()
+    }
+    
+    /**
+     * Triggers a manual notification immediately.
+     * Returns the delivered motivation ID or null if failed.
+     * 
+     * Requirements: 3.2
+     */
+    override suspend fun triggerManualNotification(): Long? {
+        return try {
+            // Get dependencies
+            val database = com.example.historymotivationcoach.data.AppDatabase.getInstance(context)
+            val motivationRepo = com.example.historymotivationcoach.data.repository.MotivationRepository(
+                database.motivationDao(),
+                database.historyDao()
+            )
+            val prefsRepo = preferencesRepository
+            val contentSelector = ContentSelector(motivationRepo, prefsRepo)
+            
+            // Check for content exhaustion
+            if (contentSelector.isContentExhausted()) {
+                return null
+            }
+            
+            // Select next motivation item
+            val motivation = contentSelector.selectNextMotivation() ?: return null
+            
+            // Record delivery in history with manual notification ID
+            val notificationId = System.currentTimeMillis().toInt()
+            motivationRepo.recordDelivery(motivation.id, notificationId)
+            
+            // Show the notification directly
+            showManualNotification(motivation, notificationId)
+            
+            motivation.id
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    
+    /**
+     * Show a manual notification for the given motivation.
+     */
+    private fun showManualNotification(item: com.example.historymotivationcoach.data.entity.MotivationItem, notificationId: Int) {
+        val intent = android.content.Intent(context, com.example.historymotivationcoach.MainActivity::class.java).apply {
+            putExtra(NotificationWorker.EXTRA_MOTIVATION_ID, item.id)
+            flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        
+        val pendingIntent = android.app.PendingIntent.getActivity(
+            context,
+            notificationId,
+            intent,
+            android.app.PendingIntent.FLAG_IMMUTABLE or android.app.PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        
+        val notification = androidx.core.app.NotificationCompat.Builder(context, NotificationWorker.CHANNEL_ID)
+            .setContentTitle(item.author)
+            .setContentText(if (item.quote.length > 100) item.quote.take(100) + "..." else item.quote)
+            .setSmallIcon(com.example.historymotivationcoach.R.drawable.ic_notification)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .setPriority(androidx.core.app.NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+        
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        notificationManager.notify(notificationId, notification)
+    }
+    
+    /**
+     * Calculates the next valid notification time
+     * based on schedule mode and time window.
+     * 
+     * Requirements: 6.1, 6.2, 6.3, 7.2
+     */
+    override fun calculateNextNotificationTime(
+        preferences: UserPreferences,
+        fromTime: LocalDateTime
+    ): LocalDateTime? {
+        val timeWindow = TimeWindow(
+            startTime = java.time.LocalTime.parse(preferences.startTime),
+            endTime = java.time.LocalTime.parse(preferences.endTime)
+        )
+        
+        val schedule = NotificationSchedule(
+            scheduleMode = preferences.scheduleMode,
+            customDays = preferences.customDays,
+            timeWindow = timeWindow,
+            notificationsPerDay = preferences.notificationsPerDay
+        )
+        
+        return schedule.calculateNextTime(fromTime)
     }
     
     /**
