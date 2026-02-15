@@ -18,6 +18,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.DayOfWeek
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 /**
  * ViewModel for the Settings screen.
@@ -53,6 +57,14 @@ class SettingsViewModel(
      */
     private val _notificationsEnabled = MutableStateFlow(areNotificationsEnabled())
     val notificationsEnabled: StateFlow<Boolean> = _notificationsEnabled.asStateFlow()
+    
+    /**
+     * State flow for validation errors.
+     * 
+     * Requirements: 8.6
+     */
+    private val _validationState = MutableStateFlow<ValidationState>(ValidationState.Valid)
+    val validationState: StateFlow<ValidationState> = _validationState.asStateFlow()
     
     /**
      * Check if system notifications are enabled for the app.
@@ -94,7 +106,7 @@ class SettingsViewModel(
                 val validatedCount = count.coerceIn(1, 10)
                 val updated = current.copy(notificationsPerDay = validatedCount)
                 preferencesRepository.updatePreferences(updated)
-                notificationScheduler.scheduleNotifications()
+                notificationScheduler.rescheduleAllNotifications()
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating notifications per day", e)
                 // In production, this would update an error state to show to user
@@ -106,7 +118,7 @@ class SettingsViewModel(
      * Update the schedule mode (Time Window or Fixed Times).
      * Triggers notification rescheduling after updating.
      * 
-     * Requirements: 2.1, 2.4
+     * Requirements: 2.1, 2.4, 4.2
      * 
      * @param mode The new schedule mode
      */
@@ -116,7 +128,7 @@ class SettingsViewModel(
                 val current = preferences.value
                 val updated = current.copy(scheduleMode = mode)
                 preferencesRepository.updatePreferences(updated)
-                notificationScheduler.scheduleNotifications()
+                notificationScheduler.rescheduleAllNotifications()
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating schedule mode", e)
             }
@@ -124,11 +136,33 @@ class SettingsViewModel(
     }
     
     /**
-     * Update the time window for notifications.
-     * Only applies when schedule mode is TIME_WINDOW.
+     * Update custom days selection.
+     * Only applicable when schedule mode is CUSTOM_DAYS.
      * Triggers notification rescheduling after updating.
      * 
-     * Requirements: 2.1, 2.4
+     * Requirements: 4.2
+     * 
+     * @param days Set of selected days of the week
+     */
+    fun updateCustomDays(days: Set<DayOfWeek>) {
+        viewModelScope.launch {
+            try {
+                val current = preferences.value
+                val updated = current.copy(customDays = days)
+                preferencesRepository.updatePreferences(updated)
+                notificationScheduler.rescheduleAllNotifications()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error updating custom days", e)
+            }
+        }
+    }
+    
+    /**
+     * Update the time window for notifications.
+     * Validates the time window before updating.
+     * Triggers notification rescheduling after updating.
+     * 
+     * Requirements: 2.1, 2.4, 5.2, 5.3, 5.4, 8.6
      * 
      * @param startTime The start time in HH:mm format
      * @param endTime The end time in HH:mm format
@@ -137,35 +171,80 @@ class SettingsViewModel(
         viewModelScope.launch {
             try {
                 val current = preferences.value
+                
+                // Validate time window
+                val validationResult = validateTimeWindow(
+                    startTime,
+                    endTime,
+                    current.notificationsPerDay
+                )
+                
+                if (!validationResult.isValid) {
+                    _validationState.value = ValidationState.Invalid(validationResult.errors)
+                    return@launch
+                }
+                
+                _validationState.value = ValidationState.Valid
                 val updated = current.copy(startTime = startTime, endTime = endTime)
                 preferencesRepository.updatePreferences(updated)
-                notificationScheduler.scheduleNotifications()
+                notificationScheduler.rescheduleAllNotifications()
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating time window", e)
+                _validationState.value = ValidationState.Invalid(
+                    listOf("Failed to update time window: ${e.message}")
+                )
             }
         }
     }
     
     /**
-     * Update the fixed times for notifications.
-     * Only applies when schedule mode is FIXED_TIMES.
-     * Triggers notification rescheduling after updating.
+     * Validates time window configuration.
+     * Checks that start time is before end time and that the window
+     * is wide enough for the requested number of notifications.
      * 
-     * Requirements: 2.1, 2.4
+     * Requirements: 5.2, 5.3, 8.6
      * 
-     * @param fixedTimes List of times in HH:mm format
+     * @param startTime The start time in HH:mm format
+     * @param endTime The end time in HH:mm format
+     * @param notificationsPerDay The number of notifications per day
+     * @return ValidationResult with isValid flag and error messages
      */
-    fun updateFixedTimes(fixedTimes: List<String>) {
-        viewModelScope.launch {
-            try {
-                val current = preferences.value
-                val updated = current.copy(fixedTimes = fixedTimes)
-                preferencesRepository.updatePreferences(updated)
-                notificationScheduler.scheduleNotifications()
-            } catch (e: Exception) {
-                Log.e(TAG, "Error updating fixed times", e)
+    fun validateTimeWindow(
+        startTime: String,
+        endTime: String,
+        notificationsPerDay: Int
+    ): ValidationResult {
+        val errors = mutableListOf<String>()
+        
+        try {
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            val start = LocalTime.parse(startTime, formatter)
+            val end = LocalTime.parse(endTime, formatter)
+            
+            // Check that start time is before end time
+            if (start >= end) {
+                errors.add("Start time must be before end time")
             }
+            
+            // Check if time window is wide enough
+            val totalMinutes = ChronoUnit.MINUTES.between(start, end)
+            val minIntervalMinutes = 30
+            val requiredMinutes = notificationsPerDay * minIntervalMinutes
+            
+            if (totalMinutes < requiredMinutes) {
+                errors.add(
+                    "Time window is too narrow for $notificationsPerDay notifications. " +
+                    "Need at least ${requiredMinutes / 60} hours and ${requiredMinutes % 60} minutes."
+                )
+            }
+        } catch (e: Exception) {
+            errors.add("Invalid time format. Use HH:mm format (e.g., 09:00)")
         }
+        
+        return ValidationResult(
+            isValid = errors.isEmpty(),
+            errors = errors
+        )
     }
     
     /**
@@ -183,7 +262,12 @@ class SettingsViewModel(
                 val current = preferences.value
                 val updated = current.copy(enabled = enabled)
                 preferencesRepository.updatePreferences(updated)
-                notificationScheduler.scheduleNotifications()
+                
+                if (enabled) {
+                    notificationScheduler.scheduleNextNotification()
+                } else {
+                    notificationScheduler.cancelAllNotifications()
+                }
             } catch (e: Exception) {
                 Log.e(TAG, "Error toggling notifications", e)
             }
@@ -231,3 +315,23 @@ class SettingsViewModel(
         private const val TAG = "SettingsViewModel"
     }
 }
+
+/**
+ * Represents the validation state of settings inputs.
+ * 
+ * Requirements: 8.6
+ */
+sealed class ValidationState {
+    object Valid : ValidationState()
+    data class Invalid(val errors: List<String>) : ValidationState()
+}
+
+/**
+ * Result of time window validation.
+ * 
+ * Requirements: 5.2, 5.3, 8.6
+ */
+data class ValidationResult(
+    val isValid: Boolean,
+    val errors: List<String> = emptyList()
+)

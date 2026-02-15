@@ -34,10 +34,10 @@ class SchedulerWorker(
             val prefsRepo = PreferencesRepository(database.preferencesDao())
             
             // 2. Create NotificationScheduler instance
-            val scheduler = NotificationScheduler(applicationContext, prefsRepo)
+            val scheduler: NotificationScheduler = NotificationSchedulerImpl(applicationContext, prefsRepo)
             
-            // 3. Call scheduleNotifications() to reschedule for the new day
-            scheduler.scheduleNotifications()
+            // 3. Call scheduleNextNotification() to reschedule for the new day
+            scheduler.scheduleNextNotification()
             
             // Return success - notifications have been rescheduled
             Result.success()

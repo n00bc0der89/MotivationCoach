@@ -57,7 +57,7 @@ class UserFlowsTest {
         // Step 5: Set up default preferences
         val defaultPrefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = true
@@ -199,7 +199,7 @@ class UserFlowsTest {
         // Step 1: Load current preferences
         val currentPrefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = true
@@ -215,22 +215,21 @@ class UserFlowsTest {
         val newTimes1 = computeNotificationTimes(updatedPrefs1)
         assertTrue(newTimes1.size <= 5, "Should schedule up to 5 notifications")
         
-        // Step 5: User switches to FIXED_TIMES mode
+        // Step 5: User switches to WEEKDAYS_ONLY mode
         val updatedPrefs2 = updatedPrefs1.copy(
-            scheduleMode = ScheduleMode.FIXED_TIMES,
-            fixedTimes = listOf("08:00", "12:00", "16:00", "20:00", "22:00")
+            scheduleMode = ScheduleMode.WEEKDAYS_ONLY
         )
         
         // Step 6: Verify mode change is persisted
-        assertEquals(ScheduleMode.FIXED_TIMES, updatedPrefs2.scheduleMode, "Mode should be updated")
+        assertEquals(ScheduleMode.WEEKDAYS_ONLY, updatedPrefs2.scheduleMode, "Mode should be updated")
         
-        // Step 7: Reschedule notifications with fixed times
+        // Step 7: Reschedule notifications with weekdays only
         val newTimes2 = computeNotificationTimes(updatedPrefs2)
-        assertTrue(newTimes2.size <= 5, "Should schedule up to 5 notifications at fixed times")
+        assertTrue(newTimes2.size <= 5, "Should schedule up to 5 notifications on weekdays")
         
         // Step 8: User changes time window
         val updatedPrefs3 = updatedPrefs2.copy(
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "10:00",
             endTime = "20:00"
         )
@@ -308,7 +307,7 @@ class UserFlowsTest {
         // Step 10: Resume normal notification scheduling
         val prefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = true
@@ -357,7 +356,7 @@ class UserFlowsTest {
         // (This would trigger SchedulerWorker to reschedule for next day)
         val nextDayPrefs = UserPreferences(
             notificationsPerDay = 3,
-            scheduleMode = ScheduleMode.TIME_WINDOW,
+            scheduleMode = ScheduleMode.ALL_DAYS,
             startTime = "09:00",
             endTime = "21:00",
             enabled = true

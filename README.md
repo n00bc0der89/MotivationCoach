@@ -67,6 +67,14 @@ To build a release APK/AAB:
 
 See `PLAY_STORE_DEPLOYMENT_GUIDE.md` for complete deployment instructions.
 
+### Permissions
+
+The app requires the following Android permissions:
+- **INTERNET**: Required for loading remote personality images from URLs (https://)
+- **POST_NOTIFICATIONS**: Required for displaying motivational notifications (Android 13+)
+- **RECEIVE_BOOT_COMPLETED**: Required for rescheduling notifications after device reboot
+- **SCHEDULE_EXACT_ALARM**: Required for precise notification timing
+
 ### Getting Started
 
 1. Clone the repository
@@ -100,6 +108,9 @@ app/
 │   │   │   │   ├── HistoryViewModel.kt   # ✅ Implemented
 │   │   │   │   └── SettingsViewModel.kt  # ✅ Implemented
 │   │   │   └── ui/                       # Compose UI
+│   │   │   │   ├── components/           # Reusable UI components
+│   │   │   │   │   ├── MotivationImage.kt    # ✅ Implemented
+│   │   │   │   │   └── PersonalityImage.kt   # ✅ Implemented (v2)
 │   │   │   │   ├── screens/
 │   │   │   │   │   ├── HomeScreen.kt     # ✅ Implemented
 │   │   │   │   │   ├── HistoryScreen.kt  # ✅ Implemented
@@ -125,6 +136,9 @@ The app follows MVVM (Model-View-ViewModel) architecture with clean separation o
 
 ### Data Layer ✅
 - **Room Database**: Persistent storage for motivation items, delivery history, and user preferences
+  - **Database Version**: v2 with enhanced schedule mode support
+  - **UserPreferences**: Extended with schedule modes (ALL_DAYS, WEEKDAYS_ONLY, WEEKENDS_ONLY, CUSTOM_DAYS) and custom day selection
+  - **ScheduleMode Extension**: `getActiveDays()` function converts schedule modes to active day sets
 - **DAOs**: Type-safe database access with coroutine support
 - **Repositories**: Clean API for data operations with business logic
   - `MotivationRepository`: Open class supporting inheritance for test fakes
@@ -133,20 +147,47 @@ The app follows MVVM (Model-View-ViewModel) architecture with clean separation o
 
 ### Business Logic Layer ✅
 - **ContentSelector**: Implements non-repeating content selection with theme filtering
-- **NotificationScheduler**: Computes notification times and schedules WorkManager tasks
+- **NotificationScheduler**: Interface-based design for flexible notification scheduling
+  - `NotificationScheduler` interface: Defines scheduling contract with methods for next notification, rescheduling, cancellation, manual triggering, and time calculation
+  - `NotificationSchedulerImpl`: WorkManager-based implementation with schedule mode and time window support
+  - Supports v2 features: manual notifications, schedule modes (ALL_DAYS, WEEKDAYS_ONLY, WEEKENDS_ONLY, CUSTOM_DAYS), and configurable time windows
 - **NotificationWorker**: Delivers notifications at scheduled times
 - **SchedulerWorker**: Reschedules notifications daily at midnight
 
 ### Presentation Layer ✅
 - **ViewModels**: State management with Kotlin Flow
-  - `HomeViewModel`: ✅ Manages home screen state with latest motivation and statistics
+  - `HomeViewModel`: ✅ Manages home screen state with latest motivation, statistics, and manual notification triggering
   - `HistoryViewModel`: ✅ Manages history screen with date grouping and formatting
-  - `SettingsViewModel`: ✅ Manages user preferences with validation and rescheduling
+  - `SettingsViewModel`: ✅ Manages user preferences with comprehensive validation and rescheduling
+    - Schedule mode management (ALL_DAYS, WEEKDAYS_ONLY, WEEKENDS_ONLY, CUSTOM_DAYS)
+    - Custom day selection for CUSTOM_DAYS mode
+    - Time window validation with LocalTime parsing and ChronoUnit calculations
+    - Minimum interval checking (30 minutes between notifications)
+    - Real-time validation state updates with error messages
+    - Automatic notification rescheduling on preference changes
 - **Compose UI**: Modern declarative UI with Material 3
-  - `HomeScreen`: ✅ Displays latest motivation with statistics and empty/error states
-  - `HistoryScreen`: ✅ Grouped timeline view with date headers and efficient scrolling
-  - `SettingsScreen`: ✅ Comprehensive settings with sliders, toggles, and time pickers
-  - `DetailScreen`: ✅ Full motivation view with rich content display
+  - **Reusable Components**:
+    - `MotivationImage`: ✅ Generic image loading component with Coil integration
+    - `PersonalityImage`: ✅ Specialized component for personality images with placeholder and error handling (v2)
+  - **Screens**:
+    - `HomeScreen`: ✅ Displays latest motivation with statistics and empty/error states
+    - `HistoryScreen`: ✅ Grouped timeline view with date headers, personality image thumbnails, and smooth animations
+      - PersonalityImage integration for 80dp thumbnails with Coil caching
+      - Multiple animation effects: slide-in headers, staggered item entry, pulsing loading, scaling empty state
+      - Efficient LazyColumn scrolling with proper content padding
+      - Rich history cards displaying time, author, quote preview, and thumbnail
+    - `SettingsScreen`: ✅ Comprehensive settings with sliders, toggles, and time pickers
+    - `DetailScreen`: ✅ Full motivation view with rich content display and personality images
+      - Large personality image (400dp height) with Coil integration and crop scaling
+      - Animated state transitions (loading, error, content) with crossfade effects
+      - Comprehensive content cards: quote, author, historical context, themes, source attribution, delivery info
+      - Theme chips displayed as Material 3 SuggestionChips with accessibility support
+      - Clickable source links using LocalUriHandler for external navigation
+      - Full timestamp formatting (e.g., "December 25, 2024 at 3:45 PM")
+      - Delivery status display (Scheduled, Delivered, Failed)
+      - Pulsing loading animation with infinite transitions
+      - Error state with emoji, message, and back navigation
+      - Vertical scrolling for long content with proper spacing
 - **Navigation**: ✅ Bottom navigation with three tabs (Home, History, Settings)
 
 ### Application Initialization ✅
@@ -211,6 +252,21 @@ All critical property-based tests implemented with Kotest:
 - ✅ **Property 40: Seed Loading Idempotence** (Task 8.5)
   - Guarantees seed data loads only once
   - Tests across multiple initialization attempts
+- ✅ **Property 42: Default Settings Maintain v1 Behavior** (Task 11.1, v2)
+  - Validates backward compatibility with v1 scheduling
+  - Tests that ALL_DAYS mode with default settings behaves identically to v1
+  - Verifies all 7 days are active with default v2 settings
+  - Ensures smooth upgrade path for existing users
+- ✅ **Property 43: Existing imageUri Values Remain Valid** (Task 11.2, v2)
+  - Validates imageUri format preservation during v1 to v2 migration
+  - Tests android.resource:// and https:// URI schemes
+  - Ensures no whitespace or invalid characters in URIs
+  - Verifies proper URI structure for both drawable resources and remote images
+- ✅ **Property 45: Unchanged Preferences Don't Trigger Rescheduling** (Task 11.3, v2)
+  - Validates performance optimization for settings screen
+  - Tests that identical preference objects are properly detected as equal
+  - Ensures no unnecessary notification rescheduling when values don't change
+  - Verifies all preference fields (including v2 additions) are compared correctly
 
 ### Implementation Complete 🎉
 The History Motivation Coach app is fully implemented and ready for Play Store deployment with:
@@ -229,7 +285,13 @@ The History Motivation Coach app is fully implemented and ready for Play Store d
 
 ### Core Functionality ✅
 - **Non-Repeating Content**: Database-backed guarantee that users never see the same quote twice (validated with 1000-iteration property tests)
-- **Flexible Scheduling**: Time window mode (evenly distributed) or fixed times mode
+- **Manual Notification Trigger** (v2): On-demand motivation delivery via HomeViewModel with state tracking and automatic UI refresh
+- **Advanced Scheduling Modes** (v2): 
+  - **ALL_DAYS**: Notifications every day of the week
+  - **WEEKDAYS_ONLY**: Monday through Friday only
+  - **WEEKENDS_ONLY**: Saturday and Sunday only
+  - **CUSTOM_DAYS**: User-selectable days of the week
+- **Time Window Configuration**: Configurable start and end times for notification delivery
 - **Reliable Delivery**: WorkManager ensures notifications survive device reboots
 - **Automatic Seed Loading**: 102 quotes load automatically on first launch with state tracking
 - **Initial Notification Scheduling**: Notifications are automatically scheduled after successful seed loading
@@ -239,20 +301,48 @@ The History Motivation Coach app is fully implemented and ready for Play Store d
 
 ### User Interface ✅
 - **Home Screen**: Latest motivation display with statistics (today's count, unseen count)
-- **History Screen**: Timeline view with date grouping (Today, Yesterday, dates)
-- **Settings Screen**: Comprehensive preferences management
+- **History Screen**: Timeline view with date grouping (Today, Yesterday, dates) and personality image thumbnails
+  - Displays 80dp personality image thumbnails for each history item
+  - Smooth animations: slide-in for headers, staggered entry for items, pulsing loading indicator, scaling empty state
+  - Efficient scrolling with LazyColumn and proper content padding
+  - Rich history cards with time, author, quote preview, and thumbnail
+  - Integrated PersonalityImage component for consistent image loading
+- **Settings Screen**: Comprehensive preferences management with v2 enhancements
   - Notifications per day slider (1-10)
-  - Schedule mode selector (Time Window / Fixed Times)
-  - Time pickers for start/end times
+  - Schedule mode selector (All Days / Weekdays Only / Weekends Only / Custom Days)
+  - Custom day selection with checkboxes (shown when Custom Days mode is active)
+  - Time pickers for configurable time window (start/end times)
+  - Real-time validation with error messages for invalid configurations
   - Notification enable/disable toggle
   - Clear History and Replay Classics buttons
-  - System notification permission warnings
-- **Detail Screen**: Full motivation view with quote, author, context, image, themes, source attribution
+  - System notification permission warnings with direct link to system settings
+  - Animated UI transitions for mode-specific controls
+- **Detail Screen**: Full motivation view with comprehensive content display
+  - Large personality image (400dp) with Coil loading and error handling
+  - Animated state transitions (loading → content) with crossfade effects
+  - Pulsing loading animation with infinite transitions for smooth UX
+  - Quote displayed in headline typography with quotation marks
+  - Author name prominently displayed with primary color styling
+  - Historical context card (when available) with contextual information
+  - Theme chips as interactive Material 3 SuggestionChips
+  - Source attribution with clickable links to external sources
+  - License information display for proper attribution
+  - Delivery timestamp with full date/time formatting
+  - Delivery status indicator (Scheduled, Delivered, Failed)
+  - Error state with emoji, message, and back navigation
+  - Vertical scrolling for long content with 16dp spacing between cards
 - **Bottom Navigation**: Three tabs (Home, History, Settings) with 48dp touch targets
 - **Dark Mode Support**: Full Material 3 theming with automatic dark mode
 
 ### Technical Excellence ✅
 - **Image Caching**: Coil ImageLoader configured with memory cache (25% of available memory) and disk cache (50MB)
+- **Personality Images**: PersonalityImage component used throughout app (HomeScreen, HistoryScreen, DetailScreen) for consistent image loading
+- **Smooth Animations**: Multiple animation effects enhance user experience:
+  - Slide-in animations for history headers and items
+  - Pulsing loading indicators with infinite transitions
+  - Scaling animations for empty states
+  - Crossfade transitions between UI states
+  - Staggered entry animations for list items
 - **State Management**: Reactive UI with Kotlin Flow and StateFlow
 - **Accessibility**: Content descriptions for all interactive elements, TalkBack support
 - **Performance**: Database indexes for efficient queries, lazy loading for history
@@ -260,6 +350,39 @@ The History Motivation Coach app is fully implemented and ready for Play Store d
 - **Deterministic Scheduling**: Unique work names prevent duplicate notifications
 
 ## Key Design Decisions
+
+### NotificationScheduler Interface Architecture
+The notification scheduling system uses an interface-based design for flexibility and testability:
+
+**Interface: `NotificationScheduler`**
+- Defines the contract for notification scheduling operations
+- Key methods:
+  - `scheduleNextNotification()`: Schedules next notification based on current preferences
+  - `rescheduleAllNotifications()`: Cancels and reschedules all pending notifications
+  - `cancelAllNotifications()`: Cancels all pending notification work
+  - `triggerManualNotification()`: Delivers an immediate manual notification
+  - `calculateNextNotificationTime()`: Computes next valid notification time with schedule mode and time window constraints
+
+**Implementation: `NotificationSchedulerImpl`**
+- WorkManager-based implementation of the interface
+- Integrates with v2 features: schedule modes, time windows, and manual notifications
+- Maintains backward compatibility with v1 scheduling logic
+- Supports dependency injection for testing
+
+This design enables:
+1. **Testability**: Easy to create test doubles and fakes
+2. **Flexibility**: Can swap implementations (e.g., for testing or alternative schedulers)
+3. **Clear Contracts**: Interface documents expected behavior
+4. **Separation of Concerns**: Interface defines "what", implementation defines "how"
+
+### Schedule Mode Logic
+The app provides flexible scheduling through four distinct modes:
+1. **ALL_DAYS**: Notifications delivered every day of the week
+2. **WEEKDAYS_ONLY**: Notifications only on Monday through Friday
+3. **WEEKENDS_ONLY**: Notifications only on Saturday and Sunday
+4. **CUSTOM_DAYS**: User-selectable days of the week
+
+The `ScheduleMode.getActiveDays()` extension function converts each mode into a set of active `DayOfWeek` values, enabling clean separation between schedule configuration and notification scheduling logic. This design allows the notification scheduler to work with a simple set of active days regardless of the underlying schedule mode.
 
 ### Testable Architecture
 Repository classes are designed to support testing:
@@ -276,10 +399,13 @@ The app guarantees users never see the same quote twice through:
 
 ### Reliable Scheduling
 Notifications are scheduled reliably using:
-1. WorkManager for guaranteed execution
-2. Deterministic work names (motivation_YYYYMMDD_index)
-3. Daily rescheduler at midnight
-4. Survives device reboots
+1. **Interface-Based Design**: `NotificationScheduler` interface with `NotificationSchedulerImpl` implementation
+2. **WorkManager Integration**: Guaranteed execution that survives device reboots
+3. **Deterministic Work Names**: Format `motivation_YYYYMMDD_index` prevents duplicates
+4. **Daily Rescheduler**: Midnight refresh ensures notifications stay current
+5. **Schedule Mode Support**: Respects day-of-week constraints (ALL_DAYS, WEEKDAYS_ONLY, WEEKENDS_ONLY, CUSTOM_DAYS)
+6. **Time Window Constraints**: Notifications only scheduled within configured start/end times
+7. **Manual Triggering**: On-demand notifications via `triggerManualNotification()` method
 
 ### Idempotent Seed Loading
 Seed data loads automatically and only once on first launch:
@@ -300,16 +426,83 @@ Coil ImageLoader is configured for optimal performance:
 4. **Automatic Usage**: All AsyncImage composables use the configured loader
 5. **Offline Support**: Cached images available without network connection
 6. **Respect Cache Headers**: Disabled to always cache images regardless of HTTP headers
+7. **Network Access**: INTERNET permission enables loading remote personality images from https:// URLs
+
+**PersonalityImage Component (v2)**:
+The `PersonalityImage` composable provides a specialized, reusable component for displaying personality images with:
+- **Coil Integration**: Uses AsyncImage for efficient loading and caching
+- **Crossfade Animation**: Smooth transitions when images load
+- **Placeholder Support**: Displays placeholder during loading
+- **Error Fallback**: Shows placeholder if image fails to load
+- **Multiple URI Schemes**: Supports android.resource://, https://, and file:// URIs (requires INTERNET permission for remote URLs)
+- **Flexible Scaling**: Configurable ContentScale for different contexts (thumbnail, card, full-screen)
+- **Accessibility**: Requires contentDescription parameter for screen reader support
+- **Null Safety**: Gracefully handles null or empty imageUri values
+
+Usage example:
+```kotlin
+PersonalityImage(
+    imageUri = motivation.imageUri,
+    contentDescription = "Portrait of ${motivation.author}",
+    modifier = Modifier.size(200.dp),
+    contentScale = ContentScale.Crop
+)
+```
 
 ### HomeViewModel State Management
 The HomeViewModel follows modern Android architecture patterns:
-1. **Sealed Class UI States**: Type-safe representation of screen states (Loading, Success, Empty, Error)
-2. **StateFlow**: Reactive state updates using Kotlin Flow
+1. **Sealed Class UI States**: Type-safe representation of screen states (Loading, Success, Empty, Error, ContentExhausted)
+2. **StateFlow**: Reactive state updates using Kotlin Flow for both UI state and manual trigger state
 3. **Coroutine Integration**: All data operations run in viewModelScope
 4. **Error Handling**: Comprehensive try-catch with user-friendly error messages
 5. **Today's Statistics**: Displays latest motivation, today's count, and unseen count
-6. **Manual Trigger**: Supports on-demand motivation requests (placeholder for WorkManager integration)
-7. **Date Key Format**: Uses YYYY-MM-DD format for consistent date handling
+6. **Manual Notification Trigger** (v2): 
+   - `triggerManualNotification()`: Delivers on-demand motivations via NotificationScheduler
+   - `ManualTriggerState`: Tracks trigger progress (Idle, Loading, Success, Error)
+   - Automatic UI refresh after successful manual trigger
+   - Content exhaustion checking before triggering
+   - Auto-reset to idle state after 2 seconds
+7. **NotificationScheduler Integration**: 
+   - Injects NotificationScheduler dependency for manual notification delivery
+   - Constructor signature: `HomeViewModel(motivationRepository, preferencesRepository, notificationScheduler)`
+   - Enables testability through dependency injection (can mock NotificationScheduler in tests)
+8. **Date Key Format**: Uses YYYY-MM-DD format for consistent date handling
+
+### SettingsViewModel Implementation (v2)
+The SettingsViewModel provides comprehensive preference management with advanced validation:
+
+**Core Features:**
+- **Schedule Mode Management**: Supports ALL_DAYS, WEEKDAYS_ONLY, WEEKENDS_ONLY, and CUSTOM_DAYS modes
+- **Custom Day Selection**: Allows users to select specific days when CUSTOM_DAYS mode is active
+- **Time Window Configuration**: Validates and updates notification start/end times
+- **Real-time Validation**: Provides immediate feedback on invalid configurations
+- **Automatic Rescheduling**: Triggers notification rescheduling when preferences change
+
+**Validation Logic:**
+- **Time Format Validation**: Uses `DateTimeFormatter.ofPattern("HH:mm")` to parse and validate time strings
+- **Start Before End**: Ensures start time is before end time using `LocalTime` comparison
+- **Minimum Interval**: Validates time window is wide enough for requested notifications (30-minute minimum intervals)
+- **Calculation**: Uses `ChronoUnit.MINUTES.between()` to compute available minutes in time window
+- **Error Messages**: Provides user-friendly error messages for validation failures
+
+**State Management:**
+- `preferences: StateFlow<UserPreferences>`: Reactive preferences from repository
+- `notificationsEnabled: StateFlow<Boolean>`: System notification permission status
+- `validationState: StateFlow<ValidationState>`: Current validation state (Valid or Invalid with errors)
+
+**Key Methods:**
+- `updateScheduleMode(mode: ScheduleMode)`: Changes schedule mode and reschedules notifications
+- `updateCustomDays(days: Set<DayOfWeek>)`: Updates custom day selection
+- `updateTimeWindow(startTime: String, endTime: String)`: Validates and updates time window
+- `validateTimeWindow()`: Comprehensive validation returning `ValidationResult`
+- `toggleNotifications(enabled: Boolean)`: Enables/disables notifications with automatic scheduling
+- `refreshNotificationStatus()`: Checks system notification permission status
+
+**Dependencies:**
+- `Context`: For checking system notification permissions
+- `PreferencesRepository`: For persisting user preferences
+- `MotivationRepository`: For clearing history (Replay Classics)
+- `NotificationScheduler`: For rescheduling notifications on preference changes
 
 ### HomeScreen Compose UI
 The HomeScreen implements a modern, responsive UI with Material 3:
@@ -333,6 +526,40 @@ The HomeScreen implements a modern, responsive UI with Material 3:
    - Screen reader support via TalkBack
    - Proper semantic structure for navigation
 10. **Dark Mode Support**: Automatic theme switching via MaterialTheme.colorScheme
+
+### DetailScreen Compose UI
+The DetailScreen provides a comprehensive view of motivation content with rich visual design:
+1. **State-Driven Architecture**: Three distinct states (Loading, Error, Content) with animated transitions
+2. **Animated State Transitions**: Crossfade animations between loading, error, and content states using AnimatedContent
+3. **Loading State**: 
+   - Pulsing circular progress indicator with infinite alpha animation (0.3 to 1.0)
+   - "Loading details..." text with synchronized pulsing effect
+   - FastOutSlowInEasing for smooth animation curves
+4. **Error State**:
+   - Warning emoji (⚠️) in display large typography
+   - Error message with user-friendly text
+   - "Go Back" button for navigation recovery
+   - Centered layout with proper spacing
+5. **Content Display**:
+   - **Large Personality Image**: 400dp height with PersonalityImage component, crop scaling, and Coil caching
+   - **Quote Card**: Headline typography with quotation marks and author attribution in primary color
+   - **Historical Context Card**: Optional card displaying contextual information when available
+   - **Theme Chips**: Material 3 SuggestionChips with accessibility content descriptions
+   - **Source Attribution Card**: Source name, clickable URL link (using LocalUriHandler), and license information
+   - **Delivery Information Card**: Full timestamp formatting (e.g., "December 25, 2024 at 3:45 PM") and delivery status
+6. **Navigation**: TopAppBar with back button and "Motivation Details" title
+7. **Scrolling**: Vertical scroll support for long content with 16dp spacing between cards
+8. **Material 3 Design**: Consistent card styling, typography hierarchy, and color scheme
+9. **Accessibility**: Content descriptions for all interactive elements and images
+10. **Dark Mode Support**: Full Material 3 theming with automatic dark mode
+
+**Key Implementation Details**:
+- Uses `MotivationRepository` to fetch motivation data by ID
+- Searches through all date keys to find the specific motivation in history
+- Formats timestamps using SimpleDateFormat with "MMMM d, yyyy 'at' h:mm a" pattern
+- Handles null context gracefully (only displays context card when available)
+- External links open via LocalUriHandler for proper browser integration
+- Scaffold layout with TopAppBar for consistent navigation experience
 
 ## Testing
 
@@ -358,12 +585,22 @@ The project includes comprehensive testing with multiple frameworks:
   - **Property 38: Concurrent Access Safety** - validates thread-safe database operations
   - **Property 39: Seed Data Validation** - validates required fields and data quality
   - **Property 40: Seed Loading Idempotence** - ensures single load across multiple calls
+  - **Property 42: Default Settings Maintain v1 Behavior** (v2) - validates backward compatibility with v1 scheduling
+  - **Property 43: Existing imageUri Values Remain Valid** (v2) - ensures URI format preservation during migration
+  - **Property 45: Unchanged Preferences Don't Trigger Rescheduling** (v2) - validates performance optimization
 - **Accessibility Tests**: Compose UI testing with property-based verification for screen readers
+- **Backward Compatibility Tests** (v2): Property-based tests ensuring smooth v1 to v2 migration
+  - Default v2 settings maintain identical behavior to v1
+  - Existing data (imageUri values) remain valid after migration
+  - Performance optimizations (no unnecessary rescheduling)
 
 ### Testing Strategy
 The project uses a hybrid testing approach:
 - **Fake Repositories**: For integration tests, repositories are subclassed to provide controlled test data
 - **Mocking**: MockK and Mockito for unit tests requiring isolated component testing
+  - ViewModels are tested with mocked dependencies (repositories, schedulers)
+  - Example: `HomeViewModelTest` mocks `MotivationRepository`, `PreferencesRepository`, and `NotificationScheduler`
+  - Enables isolated testing of ViewModel logic without database or WorkManager dependencies
 - **Property-Based Testing**: Kotest for verifying universal correctness properties across many inputs
   - Critical properties run 1000 iterations for thorough validation
   - Standard properties run 100 iterations

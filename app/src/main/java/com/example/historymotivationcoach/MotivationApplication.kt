@@ -169,13 +169,14 @@ class MotivationApplication : Application(), ImageLoaderFactory {
             )
             
             // Create notification scheduler
-            val notificationScheduler = com.example.historymotivationcoach.business.NotificationScheduler(
+            val notificationScheduler: com.example.historymotivationcoach.business.NotificationScheduler = 
+                com.example.historymotivationcoach.business.NotificationSchedulerImpl(
                 context = applicationContext,
                 preferencesRepository = preferencesRepository
             )
             
             // Schedule notifications based on current preferences
-            notificationScheduler.scheduleNotifications()
+            notificationScheduler.scheduleNextNotification()
             
             Log.i(TAG, "Initial notifications scheduled successfully")
         } catch (e: Exception) {

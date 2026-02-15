@@ -82,7 +82,7 @@ class SettingsViewModelTest {
         advanceUntilIdle()
         
         verify(preferencesRepository).updatePreferences(any())
-        verify(notificationScheduler).scheduleNotifications()
+        verify(notificationScheduler).rescheduleAllNotifications()
     }
     
     @Test
@@ -116,13 +116,13 @@ class SettingsViewModelTest {
         viewModel = SettingsViewModel(context, preferencesRepository, motivationRepository, notificationScheduler)
         advanceUntilIdle()
         
-        viewModel.updateScheduleMode(ScheduleMode.FIXED_TIMES)
+        viewModel.updateScheduleMode(ScheduleMode.WEEKDAYS_ONLY)
         advanceUntilIdle()
         
         verify(preferencesRepository).updatePreferences(
-            org.mockito.kotlin.argThat { scheduleMode == ScheduleMode.FIXED_TIMES }
+            org.mockito.kotlin.argThat { scheduleMode == ScheduleMode.WEEKDAYS_ONLY }
         )
-        verify(notificationScheduler).scheduleNotifications()
+        verify(notificationScheduler).rescheduleAllNotifications()
     }
     
     @Test
@@ -136,22 +136,7 @@ class SettingsViewModelTest {
         verify(preferencesRepository).updatePreferences(
             org.mockito.kotlin.argThat { startTime == "08:00" && endTime == "22:00" }
         )
-        verify(notificationScheduler).scheduleNotifications()
-    }
-    
-    @Test
-    fun `updateFixedTimes updates preferences and reschedules`() = runTest {
-        viewModel = SettingsViewModel(context, preferencesRepository, motivationRepository, notificationScheduler)
-        advanceUntilIdle()
-        
-        val times = listOf("09:00", "12:00", "18:00")
-        viewModel.updateFixedTimes(times)
-        advanceUntilIdle()
-        
-        verify(preferencesRepository).updatePreferences(
-            org.mockito.kotlin.argThat { fixedTimes == times }
-        )
-        verify(notificationScheduler).scheduleNotifications()
+        verify(notificationScheduler).rescheduleAllNotifications()
     }
     
     @Test
@@ -165,7 +150,7 @@ class SettingsViewModelTest {
         verify(preferencesRepository).updatePreferences(
             org.mockito.kotlin.argThat { enabled == false }
         )
-        verify(notificationScheduler).scheduleNotifications()
+        verify(notificationScheduler).cancelAllNotifications()
     }
     
     @Test
@@ -179,7 +164,7 @@ class SettingsViewModelTest {
         verify(preferencesRepository).updatePreferences(
             org.mockito.kotlin.argThat { enabled == true }
         )
-        verify(notificationScheduler).scheduleNotifications()
+        verify(notificationScheduler).scheduleNextNotification()
     }
     
     @Test

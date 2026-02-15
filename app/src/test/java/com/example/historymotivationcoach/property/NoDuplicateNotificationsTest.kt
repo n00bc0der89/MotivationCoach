@@ -174,7 +174,6 @@ class NoDuplicateNotificationsTest {
             scheduleMode = scheduleMode,
             startTime = startTime,
             endTime = endTime,
-            fixedTimes = fixedTimes,
             enabled = enabled,
             preferredThemes = Arb.list(
                 Arb.of("work", "passion", "excellence", "leadership", "innovation"),
