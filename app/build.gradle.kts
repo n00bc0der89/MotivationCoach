@@ -119,7 +119,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     
     // JSON parsing
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
