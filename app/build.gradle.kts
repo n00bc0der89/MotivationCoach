@@ -106,7 +106,7 @@ dependencies {
     ksp("androidx.room:room-compiler:$roomVersion")
     
     // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("androidx.work:work-runtime-ktx:2.11.1")
     
     // Coil for image loading
     implementation("io.coil-kt:coil-compose:2.5.0")
@@ -138,7 +138,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.10.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation("androidx.work:work-testing:2.9.0")
+    androidTestImplementation("androidx.work:work-testing:2.11.1")
     
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
